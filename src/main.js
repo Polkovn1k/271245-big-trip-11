@@ -1,5 +1,3 @@
-'use strict';
-
 const TRIP_EVENT_ITEM_COUNT = 3;
 
 const createInfoTemplate = () => {

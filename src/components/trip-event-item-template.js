@@ -1,4 +1,4 @@
-const createTripEventItemTemplate = () => {
+export const createTripEventItemTemplate = () => {
   return (
     `<li class="trip-events__item">
       <div class="event">
@@ -36,5 +36,3 @@ const createTripEventItemTemplate = () => {
     </li>`
   );
 };
-
-export {createTripEventItemTemplate};

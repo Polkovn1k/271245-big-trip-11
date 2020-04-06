@@ -1,4 +1,4 @@
-const createInfoTemplate = () => {
+export const createInfoTemplate = () => {
   return (
     `<section class="trip-main__trip-info  trip-info">
       <div class="trip-info__main">
@@ -8,5 +8,3 @@ const createInfoTemplate = () => {
     </section>`
   );
 };
-
-export {createInfoTemplate};

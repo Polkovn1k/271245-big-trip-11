@@ -50,15 +50,14 @@ const getOffersArray = (arrayLength) => {
     });
 };
 
-function setTripEventOfferData() {
+function generateTripEventOfferData() {
   for (const item in tripEventOfferData) {
     if (tripEventOfferData.hasOwnProperty(item)) {
       const arrayLength = getRandomInt(MAX_TITLE_ITEMS);
       tripEventOfferData[item] = getOffersArray(arrayLength);
     }
   }
+  return tripEventOfferData;
 }
 
-setTripEventOfferData();
-
-export {tripEventOfferData};
+export {generateTripEventOfferData};

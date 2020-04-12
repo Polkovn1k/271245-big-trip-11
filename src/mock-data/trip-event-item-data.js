@@ -1,6 +1,6 @@
 import {getRandomItemFromArray, getRandomItemsFromArray, getRandomInt, getRandomNumberFromInterval} from '../utils';
 import {EVENT_TYPE, EVENT_DESTINATION} from '../const';
-import {tripEventOfferData} from './trip-event-offer-data';
+import {generateTripEventOfferData} from './trip-event-offer-data';
 import {generateTripEventDateData} from "./trip-event-date-data";
 
 const randomPriceSettings = {
@@ -36,11 +36,14 @@ const tripEventItemSettings = {
 
 const generateTripEventItemData = () => {
   const type = getRandomItemFromArray(EVENT_TYPE);
-  const date = generateTripEventDateData();
   const destinationName = getRandomItemFromArray(EVENT_DESTINATION);
+  const offers = generateTripEventOfferData();
+  const date = generateTripEventDateData();
   return {
     type,
     destinationName,
+    offers: offers[type],
+    description: getRandomItemsFromArray(eventDestinationDescriptions, tripEventItemSettings.getDescriptionQuantity()),
     price: getRandomNumberFromInterval(randomPriceSettings.MIN_PRICE, randomPriceSettings.MAX_PRICE, randomPriceSettings.MULTIPLE),
     startDate: new Date(date.startDateTimestamp),
     endDate: new Date(date.endDateTimestamp),
@@ -49,9 +52,8 @@ const generateTripEventItemData = () => {
 
 const tripEventItemData = {
 
-  /*offers: tripEventOfferData[eventType],*/
+
   destinationInfo: {
-    description: getRandomItemsFromArray(eventDestinationDescriptions, tripEventItemSettings.getDescriptionQuantity()),
     photo: new Array(tripEventItemSettings.getPhotoQuantity())
       .fill(``)
       .map(() => `http://picsum.photos/248/152?r=${Math.random()}`),

@@ -15,11 +15,12 @@ const getEndDate = (startDateValue) => {
   return startDateValue + (getRandom(dateSettings.MAX_INTERVAL_FOR_END_DAY, dateSettings.MIN_INTERVAL_FOR_END_DAY) * dateSettings.ONE_DAY_ON_MILLISECONDS);
 };
 
-const startDateTimestamp = getStartDate();
-
-const tripEventDateData = {
-  startDateTimestamp,
-  endDateTimestamp: getEndDate(startDateTimestamp),
+const generateTripEventDateData = () => {
+  const startDateTimestamp = getStartDate();
+  return {
+    startDateTimestamp,
+    endDateTimestamp: getEndDate(startDateTimestamp),
+  };
 };
 
-export {tripEventDateData};
+export {generateTripEventDateData};

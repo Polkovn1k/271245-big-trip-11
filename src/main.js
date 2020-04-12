@@ -9,7 +9,7 @@ import {createTripDaysItemTemplate} from './components/trip-days-item-template';
 import {createTripEventsListTemplate} from './components/trip-events-list-template';
 import {createTripEventItemTemplate} from './components/trip-event-item-template';
 
-import {tripEventItemData} from "./mock-data/trip-event-item-data";
+import {generateTripEventItemData} from "./mock-data/trip-event-item-data";
 import {tripEventOfferData} from "./mock-data/trip-event-offer-data";
 import {tripEventDateData} from "./mock-data/trip-event-date-data";
 
@@ -49,4 +49,5 @@ new Array(TRIP_EVENT_ITEM_COUNT)
     render(tripEventsList, createTripEventItemTemplate(), `beforeEnd`);
   });
 
-console.dir(tripEventItemData);
+console.dir(generateTripEventItemData());
+console.dir(generateTripEventItemData());

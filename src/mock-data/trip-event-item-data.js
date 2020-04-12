@@ -1,7 +1,7 @@
 import {getRandomItemFromArray, getRandomItemsFromArray, getRandomInt, getRandomNumberFromInterval} from '../utils';
 import {EVENT_TYPE, EVENT_DESTINATION} from '../const';
 import {tripEventOfferData} from './trip-event-offer-data';
-import {tripEventDateData} from "./trip-event-date-data";
+import {generateTripEventDateData} from "./trip-event-date-data";
 
 const randomPriceSettings = {
   MIN_PRICE: 1000,
@@ -34,22 +34,29 @@ const tripEventItemSettings = {
   },
 };
 
-const eventType = getRandomItemFromArray(EVENT_TYPE);
+const generateTripEventItemData = () => {
+  const type = getRandomItemFromArray(EVENT_TYPE);
+  const date = generateTripEventDateData();
+  const destinationName = getRandomItemFromArray(EVENT_DESTINATION);
+  return {
+    type,
+    destinationName,
+    price: getRandomNumberFromInterval(randomPriceSettings.MIN_PRICE, randomPriceSettings.MAX_PRICE, randomPriceSettings.MULTIPLE),
+    startDate: new Date(date.startDateTimestamp),
+    endDate: new Date(date.endDateTimestamp),
+  };
+};
 
 const tripEventItemData = {
-  type: eventType,
-  destinationName: getRandomItemFromArray(EVENT_DESTINATION),
-  offers: tripEventOfferData[eventType],
+
+  /*offers: tripEventOfferData[eventType],*/
   destinationInfo: {
     description: getRandomItemsFromArray(eventDestinationDescriptions, tripEventItemSettings.getDescriptionQuantity()),
     photo: new Array(tripEventItemSettings.getPhotoQuantity())
       .fill(``)
       .map(() => `http://picsum.photos/248/152?r=${Math.random()}`),
   },
-  price: getRandomNumberFromInterval(randomPriceSettings.MIN_PRICE, randomPriceSettings.MAX_PRICE, randomPriceSettings.MULTIPLE),
-  startDate: new Date(tripEventDateData.startDateTimestamp),
-  endDate: new Date(tripEventDateData.endDateTimestamp),
 };
 
-export {tripEventItemData};
+export {generateTripEventItemData};
 

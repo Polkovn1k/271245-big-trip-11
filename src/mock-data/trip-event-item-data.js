@@ -1,63 +1,25 @@
-import {getRandomItemFromArray, getRandomItemsFromArray, getRandomInt, getRandomNumberFromInterval} from '../utils';
-import {EVENT_TYPE, EVENT_DESTINATION} from '../const';
+import {getRandomItemFromArray, getRandomNumberFromInterval} from '../utils';
+import {EVENT_TYPE, EVENT_DESTINATION, RANDOM_PRICE_SETTINGS} from '../const';
 import {generateTripEventOfferData} from './trip-event-offer-data';
 import {generateTripEventDateData} from "./trip-event-date-data";
-
-const randomPriceSettings = {
-  MIN_PRICE: 1000,
-  MAX_PRICE: 10000,
-  MULTIPLE: 10,
-};
-
-const eventDestinationDescriptions = [
-  `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
-  `Cras aliquet varius magna, non porta ligula feugiat eget.`,
-  `Fusce tristique felis at fermentum pharetra.`,
-  `Aliquam id orci ut lectus varius viverra.`,
-  `Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante.`,
-  `Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum.`,
-  `Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui.`,
-  `Sed sed nisi sed augue convallis suscipit in sed felis.`,
-  `Aliquam erat volutpat.`,
-  `Nunc fermentum tortor ac porta dapibus.`,
-  `In rutrum ac purus sit amet tempus.`,
-];
-
-const tripEventItemSettings = {
-  DESCRIPTION_MAX_ITEMS: 4,
-  PHOTO_MAX_ITEMS: 5,
-  getDescriptionQuantity() {
-    return getRandomInt(this.DESCRIPTION_MAX_ITEMS);
-  },
-  getPhotoQuantity() {
-    return getRandomInt(this.PHOTO_MAX_ITEMS);
-  },
-};
+import {generateTripEventDestinationData} from "./trip-event-destination-data";
 
 const generateTripEventItemData = () => {
   const type = getRandomItemFromArray(EVENT_TYPE);
   const destinationName = getRandomItemFromArray(EVENT_DESTINATION);
-  const offers = generateTripEventOfferData();
+  const offers = generateTripEventOfferData()[type];
+  const destinationInfo = generateTripEventDestinationData();
+  const price = getRandomNumberFromInterval(RANDOM_PRICE_SETTINGS.MIN_PRICE, RANDOM_PRICE_SETTINGS.MAX_PRICE, RANDOM_PRICE_SETTINGS.MULTIPLE);
   const date = generateTripEventDateData();
   return {
     type,
     destinationName,
-    offers: offers[type],
-    description: getRandomItemsFromArray(eventDestinationDescriptions, tripEventItemSettings.getDescriptionQuantity()),
-    price: getRandomNumberFromInterval(randomPriceSettings.MIN_PRICE, randomPriceSettings.MAX_PRICE, randomPriceSettings.MULTIPLE),
+    offers,
+    destinationInfo,
+    price,
     startDate: new Date(date.startDateTimestamp),
     endDate: new Date(date.endDateTimestamp),
   };
-};
-
-const tripEventItemData = {
-
-
-  destinationInfo: {
-    photo: new Array(tripEventItemSettings.getPhotoQuantity())
-      .fill(``)
-      .map(() => `http://picsum.photos/248/152?r=${Math.random()}`),
-  },
 };
 
 export {generateTripEventItemData};

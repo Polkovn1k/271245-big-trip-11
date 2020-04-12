@@ -17,8 +17,7 @@ const generateTripEventItemData = () => {
     offers,
     destinationInfo,
     price,
-    startDate: new Date(date.startDateTimestamp),
-    endDate: new Date(date.endDateTimestamp),
+    date,
   };
 };
 

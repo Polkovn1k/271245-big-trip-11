@@ -8,10 +8,7 @@ import {createTripDaysListTemplate} from './components/trip-days-list-template';
 import {createTripDaysItemTemplate} from './components/trip-days-item-template';
 import {createTripEventsListTemplate} from './components/trip-events-list-template';
 import {createTripEventItemTemplate} from './components/trip-event-item-template';
-
 import {generateTripEventItemData} from "./mock-data/trip-event-item-data";
-import {tripEventOfferData} from "./mock-data/trip-event-offer-data";
-import {tripEventDateData} from "./mock-data/trip-event-date-data";
 
 const TRIP_EVENT_ITEM_COUNT = 3;
 

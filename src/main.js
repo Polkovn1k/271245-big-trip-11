@@ -9,6 +9,10 @@ import {createTripDaysItemTemplate} from './components/trip-days-item-template';
 import {createTripEventsListTemplate} from './components/trip-events-list-template';
 import {createTripEventItemTemplate} from './components/trip-event-item-template';
 
+import {tripEventItemData} from "./mock-data/trip-event-item-data";
+import {tripEventOfferData} from "./mock-data/trip-event-offer-data";
+import {tripEventDateData} from "./mock-data/trip-event-date-data";
+
 const TRIP_EVENT_ITEM_COUNT = 3;
 
 const render = (container, template, place) => {
@@ -44,3 +48,5 @@ new Array(TRIP_EVENT_ITEM_COUNT)
   .forEach(() => {
     render(tripEventsList, createTripEventItemTemplate(), `beforeEnd`);
   });
+
+console.dir(tripEventItemData);

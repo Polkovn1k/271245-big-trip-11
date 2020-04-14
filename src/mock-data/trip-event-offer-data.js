@@ -1,6 +1,6 @@
 import {getRandomItemFromArray, getRandomInt, getRandomNumberFromInterval} from '../utils';
 
-const MAX_TITLE_ITEMS = 5;
+const MAX_TITLE_ITEMS = 3;
 
 const eventOfferTitle = [
   `Choose the radio station`,

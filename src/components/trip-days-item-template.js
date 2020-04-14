@@ -2,8 +2,8 @@ import {MONTH_NAMES} from '../const';
 
 export const createTripDaysItemTemplate = (obj) => {
   const {date} = obj;
-  const month = MONTH_NAMES[new Date(date.startDateTimestamp).getMonth()];
-  const dateNum = new Date(date.startDateTimestamp).getDate();
+  const month = MONTH_NAMES[date.startDate.getMonth()];
+  const dateNum = date.startDate.getDate();
   return (
     `<li class="trip-days__item  day">
       <div class="day__info">

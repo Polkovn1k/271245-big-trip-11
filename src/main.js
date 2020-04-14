@@ -50,5 +50,5 @@ new Array(TRIP_EVENT_ITEM_QUANTITY)
     render(tripEventsList, createTripEventItemTemplate(tripEventItems[i]), `beforeEnd`);
   });
 
-console.dir(tripEventItems[0]);
+console.dir(tripEventItems);
 

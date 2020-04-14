@@ -21,16 +21,16 @@ const eventOfferTitle = [
 ];
 
 const tripEventOfferData = {
-  'Taxi': null,
-  'Bus': null,
-  'Train': null,
-  'Ship': null,
-  'Transport': null,
-  'Drive': null,
-  'Flight': null,
-  'Check-in': null,
-  'Sightseeng': null,
-  'Restaurant': null,
+  'taxi': null,
+  'bus': null,
+  'train': null,
+  'ship': null,
+  'transport': null,
+  'drive': null,
+  'flight': null,
+  'check-in': null,
+  'sightseeing': null,
+  'restaurant': null,
 };
 
 const randomPriceSettings = {

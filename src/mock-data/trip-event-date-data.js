@@ -16,10 +16,10 @@ const getEndDate = (startDateValue) => {
 };
 
 const generateTripEventDateData = () => {
-  const startDateTimestamp = getStartDate();
+  const startDate = getStartDate();
   return {
-    startDateTimestamp,
-    endDateTimestamp: getEndDate(startDateTimestamp),
+    startDate: new Date(startDate),
+    endDate: new Date(getEndDate(startDate)),
   };
 };
 

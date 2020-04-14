@@ -23,9 +23,7 @@ const getEventSelectedOffersItemTemplate = (offerData) => {
 
 export const createTripEventItemTemplate = (obj) => {
   const {type, destinationName, offers, destinationInfo, price, date} = obj;
-  const eventStartTime = date.startDateTimestamp;
-  const eventEndTime = date.endDateTimestamp;
-  const eventDuration = timeDuration(new Date(eventStartTime), new Date(eventEndTime));
+  const eventDuration = timeDuration(date.startDate, date.endDate);
   return (
     `<li class="trip-events__item">
       <div class="event">
@@ -36,9 +34,9 @@ export const createTripEventItemTemplate = (obj) => {
 
         <div class="event__schedule">
           <p class="event__time">
-            <time class="event__start-time" datetime="2019-03-18T10:30">${formatTime(new Date(eventStartTime))}</time>
+            <time class="event__start-time" datetime="2019-03-18T10:30">${formatTime(date.startDate)}</time>
             &mdash;
-            <time class="event__end-time" datetime="2019-03-18T11:00">${formatTime(new Date(eventEndTime))}</time>
+            <time class="event__end-time" datetime="2019-03-18T11:00">${formatTime(date.endDate)}</time>
           </p>
           <p class="event__duration">${eventDuration}</p>
         </div>

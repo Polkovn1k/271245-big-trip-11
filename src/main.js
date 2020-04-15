@@ -42,11 +42,18 @@ const tripDaysList = tripEventsElement.querySelector(`.trip-days`);
 Array.from(tripDays)
   .forEach((item, i) => render(tripDaysList, createTripDaysItemTemplate(item, ++i), `beforeEnd`));
 
-/*
-const tripDaysItem = tripDaysList.querySelector(`.trip-days__item`);
-render(tripDaysItem, createTripEventsListTemplate(), `beforeEnd`);
+const tripDaysItem = tripDaysList.querySelectorAll(`.trip-days__item`);
+tripDaysItem.forEach((item) => {
+  render(item, createTripEventsListTemplate(), `beforeEnd`);
+});
 
 const tripEventsList = tripDaysItem.querySelector(`.trip-events__list`);
+tripEventsList.forEach((item) => {
+
+});
+/*
+
+
 new Array(TRIP_EVENT_ITEM_QUANTITY)
   .fill(``)
   .forEach((item, i) => {
@@ -54,3 +61,5 @@ new Array(TRIP_EVENT_ITEM_QUANTITY)
   });
 */
 
+console.dir(tripDaysItem);
+console.dir(tripEventItems);

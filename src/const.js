@@ -47,7 +47,7 @@ const MONTH_NAMES = [
   `FEB`,
   `MAR`,
   `APR`,
-  `May`,
+  `MAY`,
   `JUN`,
   `JUL`,
   `AUG`,

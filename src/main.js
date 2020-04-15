@@ -39,8 +39,10 @@ render(tripEventsElement, createEventEditTemplate(), `beforeEnd`);
 render(tripEventsElement, createTripDaysListTemplate(), `beforeEnd`);
 
 const tripDaysList = tripEventsElement.querySelector(`.trip-days`);
-render(tripDaysList, createTripDaysItemTemplate(tripEventItems[0]), `afterBegin`);
+Array.from(tripDays)
+  .forEach((item, i) => render(tripDaysList, createTripDaysItemTemplate(item, ++i), `beforeEnd`));
 
+/*
 const tripDaysItem = tripDaysList.querySelector(`.trip-days__item`);
 render(tripDaysItem, createTripEventsListTemplate(), `beforeEnd`);
 
@@ -50,8 +52,5 @@ new Array(TRIP_EVENT_ITEM_QUANTITY)
   .forEach((item, i) => {
     render(tripEventsList, createTripEventItemTemplate(tripEventItems[i]), `beforeEnd`);
   });
-
-//console.dir(tripEventItems);
-console.dir(tripDays);
-
+*/
 

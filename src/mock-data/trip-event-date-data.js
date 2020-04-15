@@ -23,4 +23,8 @@ const generateTripEventDateData = () => {
   };
 };
 
-export {generateTripEventDateData};
+const generateTripDays = (eventArr) => {
+  return new Set(eventArr.map((item) => `${item.date.startDate.getFullYear()}-${item.date.startDate.getMonth()}-${item.date.startDate.getDay()}`));
+};
+
+export {generateTripEventDateData, generateTripDays};

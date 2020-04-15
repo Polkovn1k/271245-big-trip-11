@@ -8,17 +8,18 @@ import {createTripDaysListTemplate} from './components/trip-days-list-template';
 import {createTripDaysItemTemplate} from './components/trip-days-item-template';
 import {createTripEventsListTemplate} from './components/trip-events-list-template';
 import {createTripEventItemTemplate} from './components/trip-event-item-template';
-import {generateTripEventItemData} from "./mock-data/trip-event-item-data";
+import {generateTripEventsData} from "./mock-data/trip-event-item-data";
+import {generateTripDays} from "./mock-data/trip-event-date-data";
 
 const TRIP_EVENT_ITEM_QUANTITY = 20;
+
+const tripEventItems = generateTripEventsData(TRIP_EVENT_ITEM_QUANTITY);
+
+const tripDays = generateTripDays(tripEventItems);
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
-
-const tripEventItems = new Array(TRIP_EVENT_ITEM_QUANTITY).
-fill(``)
-  .map(() => generateTripEventItemData());
 
 const tripMainElement = document.querySelector(`.trip-main`);
 render(tripMainElement, createInfoTemplate(), `afterBegin`);
@@ -50,5 +51,7 @@ new Array(TRIP_EVENT_ITEM_QUANTITY)
     render(tripEventsList, createTripEventItemTemplate(tripEventItems[i]), `beforeEnd`);
   });
 
-console.dir(tripEventItems);
+//console.dir(tripEventItems);
+console.dir(tripDays);
+
 

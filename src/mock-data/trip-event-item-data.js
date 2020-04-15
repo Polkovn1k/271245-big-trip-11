@@ -23,5 +23,11 @@ const generateTripEventItemData = () => {
   };
 };
 
-export {generateTripEventItemData};
+const generateTripEventsData = (count) => {
+  return new Array(count)
+    .fill(``)
+    .map(() => generateTripEventItemData());
+};
+
+export {generateTripEventsData};
 

@@ -23,12 +23,14 @@ const generateTripEventDateData = () => {
   };
 };
 
+const getTripDaysString = (item) => `${item.date.startDate.getFullYear()}-${item.date.startDate.getMonth() + 1}-${item.date.startDate.getDate()}`;
+
 const generateTripDays = (eventArr) => {
   let tripDays = eventArr
     .slice()
     .sort((a, b) => new Date(a.date.startDate) - new Date(b.date.startDate))
-    .map((item) => `${item.date.startDate.getFullYear()}-${item.date.startDate.getMonth() + 1}-${item.date.startDate.getDate()}`);
+    .map((item) => getTripDaysString(item));
   return [...new Set(tripDays)];
 };
 
-export {generateTripEventDateData, generateTripDays};
+export {generateTripEventDateData, generateTripDays, getTripDaysString};

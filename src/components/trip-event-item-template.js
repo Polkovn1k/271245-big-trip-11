@@ -1,14 +1,7 @@
-import {formatTime, timeDuration} from '../utils';
+import {formatTime, timeDuration, checkEventType} from '../utils';
 import {ACTIVITY_TYPE} from '../const';
 
-const checkEventType = (type) => {
-  const isActivityType = ACTIVITY_TYPE.some((item) => {
-    return item === type;
-  });
-  return isActivityType ? `in` : `to`;
-};
-
-const getEventSelectedOffersItemTemplate = (offerData) => {
+const getEventSelectedOffersTemplate = (offerData) => {
   return offerData.map((item) => {
     return (
       `<li class="event__offer">
@@ -30,7 +23,7 @@ export const createTripEventItemTemplate = (obj) => {
         <div class="event__type">
           <img class="event__type-icon" width="42" height="42" src="img/icons/${type.toLowerCase()}.png" alt="Event type icon">
         </div>
-        <h3 class="event__title">${type} ${checkEventType(type)} ${destinationName}</h3>
+        <h3 class="event__title">${type} ${checkEventType(type, ACTIVITY_TYPE)} ${destinationName}</h3>
 
         <div class="event__schedule">
           <p class="event__time">
@@ -47,7 +40,7 @@ export const createTripEventItemTemplate = (obj) => {
 
         <h4 class="visually-hidden">Offers:</h4>
         <ul class="event__selected-offers">
-          ${getEventSelectedOffersItemTemplate(offers)}
+          ${getEventSelectedOffersTemplate(offers)}
         </ul>
 
         <button class="event__rollup-btn" type="button">

@@ -50,4 +50,11 @@ function timeDuration(start, end) {
   return `${duration.days}${duration.hours}${duration.minutes}`;
 }
 
-export {getRandomItemFromArray, getRandomItemsFromArray, getRandom, getRandomInt, removeDuplicatesFromArray, getRandomNumberFromInterval, formatTime, timeDuration};
+const checkEventType = (type, arr) => {
+  const isActivityType = arr.some((item) => {
+    return item === type;
+  });
+  return isActivityType ? `in` : `to`;
+};
+
+export {getRandomItemFromArray, getRandomItemsFromArray, getRandom, getRandomInt, removeDuplicatesFromArray, getRandomNumberFromInterval, castTimeFormat, formatTime, timeDuration, checkEventType};

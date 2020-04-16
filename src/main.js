@@ -34,7 +34,6 @@ render(tripControlsTitleElement, createMenuTemplate(), `afterEnd`);
 const tripEventsElement = document.querySelector(`.trip-events`);
 const tripEventsTitleElement = tripEventsElement.querySelector(`.trip-events h2:first-child`);
 render(tripEventsTitleElement, createSortTemplate(), `afterEnd`);
-render(tripEventsElement, createEventEditTemplate(), `beforeEnd`);
 render(tripEventsElement, createTripDaysListTemplate(), `beforeEnd`);
 
 const tripDaysList = tripEventsElement.querySelector(`.trip-days`);
@@ -44,7 +43,7 @@ Array.from(tripDays)
   });
 
 const tripDaysItem = tripDaysList.querySelectorAll(`.trip-days__item`);
-tripDaysItem.forEach((item) => {
+tripDaysItem.forEach((item, i) => {
   render(item, createTripEventsListTemplate(), `beforeEnd`);
   const tripEventsList = item.querySelector(`.trip-events__list`);
   tripEventItems
@@ -52,7 +51,11 @@ tripDaysItem.forEach((item) => {
       return getTripDaysString(eventItem) === tripDays[0];
     })
     .forEach((dayEvent) => {
-      render(tripEventsList, createTripEventItemTemplate(dayEvent), `beforeEnd`);
+      if (i === 0) {
+        render(tripEventsList, createEventEditTemplate(dayEvent), `beforeEnd`);
+      } else {
+        render(tripEventsList, createTripEventItemTemplate(dayEvent), `beforeEnd`);
+      }
     });
   tripDays.shift();
 });

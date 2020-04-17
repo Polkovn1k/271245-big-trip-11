@@ -11,12 +11,13 @@ const getEventSelectedOffersTemplate = (offerData) => {
       </li>`
     );
   })
-    .join(`\n`);
+  .join(`\n`);
 };
 
 export const createTripEventItemTemplate = (obj) => {
-  const {type, destinationName, offers, destinationInfo, price, date} = obj;
+  const {type, destinationName, offers, price, date} = obj;
   const eventDuration = timeDuration(date.startDate, date.endDate);
+
   return (
     `<li class="trip-events__item">
       <div class="event">

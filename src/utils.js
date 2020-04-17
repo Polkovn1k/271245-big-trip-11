@@ -4,6 +4,7 @@ const getRandomItemFromArray = (arr) => {
 
 const getRandomItemsFromArray = (arr, quantity) => {
   const randomItems = arr.map(() => getRandomItemFromArray(arr)).slice(0, quantity);
+
   return removeDuplicatesFromArray(randomItems);
 };
 
@@ -36,17 +37,18 @@ const formatTime = (date) => {
 
 
 function timeDuration(start, end) {
-  let delta = Math.floor((end - start) / 1000);
-  const days = Math.floor(delta / 86400);
-  delta -= days * 86400;
-  const hours = Math.floor(delta / 3600) % 24;
-  delta -= hours * 3600;
-  const minutes = Math.floor(delta / 60) % 60;
+  start = start.getTime();
+  end = end.getTime();
+  const diff = end - start;
+  const days = new Date(end).getDay() - new Date(start).getDay();
+  const hours = new Date(end).getHours() - new Date(start).getHours();
+  const minutes = new Date(diff - (hours * (24 * 3600 * 1000))).getMinutes();
   const duration = {
-    days: days ? `${castTimeFormat(days)}D ` : ``,
-    hours: hours ? `${castTimeFormat(hours)}H ` : ``,
-    minutes: minutes ? `${castTimeFormat(minutes)}M` : ``,
+    days: days > 0 ? `${castTimeFormat(days)}D ` : ``,
+    hours: hours > 0 ? `${castTimeFormat(hours)}H ` : ``,
+    minutes: minutes > 0 ? `${castTimeFormat(minutes)}M` : ``,
   };
+
   return `${duration.days}${duration.hours}${duration.minutes}`;
 }
 
@@ -54,7 +56,19 @@ const checkEventType = (type, arr) => {
   const isActivityType = arr.some((item) => {
     return item === type;
   });
+
   return isActivityType ? `in` : `to`;
 };
 
-export {getRandomItemFromArray, getRandomItemsFromArray, getRandom, getRandomInt, removeDuplicatesFromArray, getRandomNumberFromInterval, castTimeFormat, formatTime, timeDuration, checkEventType};
+export {
+  getRandomItemFromArray,
+  getRandomItemsFromArray,
+  getRandom,
+  getRandomInt,
+  removeDuplicatesFromArray,
+  getRandomNumberFromInterval,
+  castTimeFormat,
+  formatTime,
+  timeDuration,
+  checkEventType
+};

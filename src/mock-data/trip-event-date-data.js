@@ -17,6 +17,7 @@ const getEndDate = (startDateValue) => {
 
 const generateTripEventDateData = () => {
   const startDate = getStartDate();
+
   return {
     startDate: new Date(startDate),
     endDate: new Date(getEndDate(startDate)),
@@ -30,6 +31,7 @@ const generateTripDays = (eventArr) => {
     .slice()
     .sort((a, b) => new Date(a.date.startDate) - new Date(b.date.startDate))
     .map((item) => getTripDaysString(item));
+
   return [...new Set(tripDays)];
 };
 

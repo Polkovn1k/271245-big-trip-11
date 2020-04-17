@@ -8,7 +8,7 @@ const getCheckedStatus = () => {
 const generatePhoto = (imgSrcArr, destinationName) => {
   return imgSrcArr
     .map((item, i) => {
-      return `<img class="event__photo" src="${item}" alt="${destinationName} - photo №${++i}">`;
+      return `<img class="event__photo" src="${item}" alt="${destinationName} - photo №${i + 1}">`;
     })
     .join(`\n`);
 };
@@ -47,6 +47,7 @@ const getDateString = (dateObj) => {
   const day = dateObj.getDate();
   const month = castTimeFormat(dateObj.getMonth() + 1);
   const year = String(dateObj.getFullYear()).slice(2);
+
   return `${day}/${month}/${year}`;
 };
 

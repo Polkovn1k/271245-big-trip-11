@@ -13,6 +13,7 @@ const generateTripEventItemData = () => {
   const destinationInfo = generateTripEventDestinationData();
   const price = getRandomNumberFromInterval(RANDOM_PRICE_SETTINGS.MIN_PRICE, RANDOM_PRICE_SETTINGS.MAX_PRICE, RANDOM_PRICE_SETTINGS.MULTIPLE);
   const date = generateTripEventDateData();
+
   return {
     type,
     destinationName,

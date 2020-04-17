@@ -50,12 +50,16 @@ tripDaysItem.forEach((item, i) => {
     .filter((eventItem) => {
       return getTripDaysString(eventItem) === tripDays[0];
     })
-    .forEach((dayEvent) => {
+    .forEach((dayEvent, count) => {
       if (i === 0) {
-        render(tripEventsList, createEventEditTemplate(dayEvent), `beforeEnd`);
-      } else {
+        if (count === 0) {
+          render(tripEventsList, createEventEditTemplate(dayEvent), `beforeEnd`);
+          return;
+        }
         render(tripEventsList, createTripEventItemTemplate(dayEvent), `beforeEnd`);
+        return;
       }
+      render(tripEventsList, createTripEventItemTemplate(dayEvent), `beforeEnd`);
     });
   tripDays.shift();
 });

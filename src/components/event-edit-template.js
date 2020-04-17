@@ -135,17 +135,16 @@ export const createEventEditTemplate = (obj) => {
             ${getEventOfferSelecterTemplate(offers)}
           </div>
         </section>
-      </section>
+        <section class="event__section  event__section--destination">
+          <h3 class="event__section-title  event__section-title--destination">Destination</h3>
+          <p class="event__destination-description">${destinationInfo.destinationDescription.join(` `)}</p>
 
-      <section class="event__section  event__section--destination">
-        <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-        <p class="event__destination-description">${destinationInfo.destinationDescription.join(` `)}</p>
-
-        <div class="event__photos-container">
-          <div class="event__photos-tape">
-            ${generatePhoto(destinationInfo.destinationPhoto, destinationName)}
+          <div class="event__photos-container">
+            <div class="event__photos-tape">
+              ${generatePhoto(destinationInfo.destinationPhoto, destinationName)}
+            </div>
           </div>
-        </div>
+        </section>
       </section>
     </form>`
   );

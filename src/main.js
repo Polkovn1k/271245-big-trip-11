@@ -21,7 +21,7 @@ const render = (container, template, place) => {
 };
 
 const tripMainElement = document.querySelector(`.trip-main`);
-render(tripMainElement, createInfoTemplate(), `afterBegin`);
+render(tripMainElement, createInfoTemplate(tripEventItems), `afterBegin`);
 
 const tripInfoElement = tripMainElement.querySelector(`.trip-main__trip-info`);
 render(tripInfoElement, createCostTemplate(), `beforeEnd`);
@@ -48,6 +48,8 @@ tripDaysItem.forEach((item, i) => {
   const tripEventsList = item.querySelector(`.trip-events__list`);
 
   tripEventItems
+    .slice()
+    .sort((a, b) => new Date(a.date.startDate) - new Date(b.date.startDate))
     .filter((eventItem) => {
       return getTripDaysString(eventItem) === tripDays[0];
     })
@@ -64,3 +66,5 @@ tripDaysItem.forEach((item, i) => {
     });
   tripDays.shift();
 });
+
+console.dir(tripEventItems);

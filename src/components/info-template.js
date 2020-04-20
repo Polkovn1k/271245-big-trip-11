@@ -21,15 +21,16 @@ const generateDates = (array) => {
 };
 
 export const createInfoTemplate = (eventsArray) => {
-  eventsArray = eventsArray
+
+  const sortedEvents = eventsArray
     .slice()
     .sort((a, b) => new Date(a.date.startDate) - new Date(b.date.startDate));
 
   return (
     `<section class="trip-main__trip-info  trip-info">
       <div class="trip-info__main">
-        <h1 class="trip-info__title">${generateTitle(eventsArray)}</h1>
-        <p class="trip-info__dates">${generateDates(eventsArray)}</p>
+        <h1 class="trip-info__title">${generateTitle(sortedEvents)}</h1>
+        <p class="trip-info__dates">${generateDates(sortedEvents)}</p>
       </div>
     </section>`
   );

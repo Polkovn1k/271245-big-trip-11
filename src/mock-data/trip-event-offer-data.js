@@ -42,12 +42,10 @@ const randomPriceSettings = {
 const getOffersArray = (arrayLength) => {
   return new Array(arrayLength)
     .fill(``)
-    .map(() => {
-      return {
-        title: getRandomItemFromArray(eventOfferTitle),
-        price: getRandomNumberFromInterval(randomPriceSettings.MIN_PRICE, randomPriceSettings.MAX_PRICE, randomPriceSettings.MULTIPLE),
-      };
-    });
+    .map(() => ({
+      title: getRandomItemFromArray(eventOfferTitle),
+      price: getRandomNumberFromInterval(randomPriceSettings.MIN_PRICE, randomPriceSettings.MAX_PRICE, randomPriceSettings.MULTIPLE),
+    }));
 };
 
 function generateTripEventOfferData() {
@@ -57,6 +55,7 @@ function generateTripEventOfferData() {
       tripEventOfferData[item] = getOffersArray(arrayLength);
     }
   }
+
   return tripEventOfferData;
 }
 

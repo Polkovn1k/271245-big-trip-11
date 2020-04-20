@@ -50,9 +50,7 @@ tripDaysItem.forEach((item, i) => {
   tripEventItems
     .slice()
     .sort((a, b) => new Date(a.date.startDate) - new Date(b.date.startDate))
-    .filter((eventItem) => {
-      return getTripDaysString(eventItem) === tripDays[0];
-    })
+    .filter((eventItem) => getTripDaysString(eventItem) === tripDays[0])
     .forEach((dayEvent, count) => {
       if (i === 0) {
         if (count === 0) {
@@ -66,5 +64,3 @@ tripDaysItem.forEach((item, i) => {
     });
   tripDays.shift();
 });
-
-console.dir(tripEventItems);

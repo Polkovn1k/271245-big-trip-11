@@ -2,16 +2,13 @@ import {formatTime, timeDuration, checkEventType} from '../utils';
 import {ACTIVITY_TYPE} from '../const';
 
 const getEventSelectedOffersTemplate = (offerData) => {
-  return offerData.map((item) => {
-    return (
-      `<li class="event__offer">
-        <span class="event__offer-title">${item.title}</span>
-        &plus; &euro;&nbsp;
-        <span class="event__offer-price">${item.price}</span>
-      </li>`
-    );
-  })
-  .join(`\n`);
+  return offerData.map((item) => (
+    `<li class="event__offer">
+      <span class="event__offer-title">${item.title}</span>
+      &plus; &euro;&nbsp;
+      <span class="event__offer-price">${item.price}</span>
+    </li>`))
+    .join(`\n`);
 };
 
 export const createTripEventItemTemplate = (obj) => {

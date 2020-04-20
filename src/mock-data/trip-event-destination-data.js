@@ -20,7 +20,7 @@ const generateTripEventDestinationData = () => {
   const destinationDescription = getRandomItemsFromArray(eventDestinationDescriptions, getRandomInt(DESCRIPTION_AND_PHOTO_MAX_ITEMS));
   const destinationPhoto = new Array(getRandomInt(DESCRIPTION_AND_PHOTO_MAX_ITEMS))
     .fill(``)
-    .map(() => `http://picsum.photos/248/152?r=${Math.random()}`);
+    .map(() => (`http://picsum.photos/248/152?r=${Math.random()}`));
 
   return {
     destinationDescription,

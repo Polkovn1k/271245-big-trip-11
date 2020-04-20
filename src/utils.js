@@ -1,6 +1,4 @@
-const getRandomItemFromArray = (arr) => {
-  return arr[Math.floor(Math.random() * arr.length)];
-};
+const getRandomItemFromArray = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 const getRandomItemsFromArray = (arr, quantity) => {
   const randomItems = arr.map(() => getRandomItemFromArray(arr)).slice(0, quantity);
@@ -8,25 +6,15 @@ const getRandomItemsFromArray = (arr, quantity) => {
   return removeDuplicatesFromArray(randomItems);
 };
 
-const getRandom = (max, min = 1) => {
-  return Math.random() * (max - min) + min;
-};
+const getRandom = (max, min = 1) => Math.random() * (max - min) + min;
 
-const getRandomInt = (max, min = 1) => {
-  return Math.floor(Math.random() * (max - min)) + min;
-};
+const getRandomInt = (max, min = 1) => Math.floor(Math.random() * (max - min)) + min;
 
-const removeDuplicatesFromArray = (arr) => {
-  return Array.from(new Set(arr));
-};
+const removeDuplicatesFromArray = (arr) => Array.from(new Set(arr));
 
-const getRandomNumberFromInterval = (min, max, mult) => {
-  return Math.floor(Math.floor(Math.random() * (max - min + 1) + min) / mult) * mult;
-};
+const getRandomNumberFromInterval = (min, max, mult) => Math.floor(Math.floor(Math.random() * (max - min + 1) + min) / mult) * mult;
 
-const castTimeFormat = (value) => {
-  return value < 10 ? `0${value}` : String(value);
-};
+const castTimeFormat = (value) => value < 10 ? `0${value}` : String(value);
 
 const formatTime = (date) => {
   const hours = castTimeFormat(date.getHours() % 12);
@@ -37,11 +25,11 @@ const formatTime = (date) => {
 
 
 function timeDuration(start, end) {
-  start = start.getTime();
-  end = end.getTime();
-  const diff = end - start;
-  const days = new Date(end).getDay() - new Date(start).getDay();
-  const hours = new Date(end).getHours() - new Date(start).getHours();
+  const startTime = start.getTime();
+  const endTime = end.getTime();
+  const diff = endTime - startTime;
+  const days = new Date(endTime).getDay() - new Date(startTime).getDay();
+  const hours = new Date(endTime).getHours() - new Date(startTime).getHours();
   const minutes = new Date(diff - (hours * (24 * 3600 * 1000))).getMinutes();
   const duration = {
     days: days > 0 ? `${castTimeFormat(days)}D ` : ``,
@@ -53,9 +41,7 @@ function timeDuration(start, end) {
 }
 
 const checkEventType = (type, arr) => {
-  const isActivityType = arr.some((item) => {
-    return item === type;
-  });
+  const isActivityType = arr.some((item) => item === type);
 
   return isActivityType ? `in` : `to`;
 };

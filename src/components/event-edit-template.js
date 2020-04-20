@@ -1,45 +1,35 @@
 import {formatTime, checkEventType, castTimeFormat} from '../utils';
 import {TRANSFER_TYPE, ACTIVITY_TYPE, EVENT_DESTINATION} from '../const';
 
-const getCheckedStatus = () => {
-  return `${Math.random() > 0.5 ? `checked` : ``}`;
-};
+const getCheckedStatus = () => (`${Math.random() > 0.5 ? `checked` : ``}`);
 
 const generatePhoto = (imgSrcArr, destinationName) => {
   return imgSrcArr
-    .map((item, i) => {
-      return `<img class="event__photo" src="${item}" alt="${destinationName} - photo №${i + 1}">`;
-    })
+    .map((item, i) => (`<img class="event__photo" src="${item}" alt="${destinationName} - photo №${i + 1}">`))
     .join(`\n`);
 };
 
 const generateEventTypeItems = (eventTypes) => {
   return eventTypes
-    .map((item) => {
-      return (
-        `<div class="event__type-item">
-          <input id="event-type-${item}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${item}">
-          <label class="event__type-label  event__type-label--${item}" for="event-type-${item}-1">${item}</label>
-        </div>`
-      );
-    })
+    .map((item) => (
+      `<div class="event__type-item">
+        <input id="event-type-${item}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${item}">
+        <label class="event__type-label  event__type-label--${item}" for="event-type-${item}-1">${item}</label>
+      </div>`))
     .join(`\n`);
 };
 
 const getEventOfferSelecterTemplate = (offerData) => {
   return offerData
-    .map((item, i) => {
-      return (
-        `<div class="event__offer-selector">
-          <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-${i}" type="checkbox" name="event-offer-luggage" ${getCheckedStatus()}>
-          <label class="event__offer-label" for="event-offer-luggage-${i}">
-            <span class="event__offer-title">${item.title}</span>
-              &plus;
-              &euro;&nbsp;<span class="event__offer-price">${item.price}</span>
-          </label>
-        </div>`
-      );
-    })
+    .map((item, i) => (
+      `<div class="event__offer-selector">
+        <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-${i}" type="checkbox" name="event-offer-luggage" ${getCheckedStatus()}>
+        <label class="event__offer-label" for="event-offer-luggage-${i}">
+          <span class="event__offer-title">${item.title}</span>
+            &plus;
+            &euro;&nbsp;<span class="event__offer-price">${item.price}</span>
+        </label>
+      </div>`))
     .join(`\n`);
 };
 
@@ -53,9 +43,7 @@ const getDateString = (dateObj) => {
 
 const generateOptions = (optValue) => {
   return optValue
-    .map((item) => {
-      return `<option value="${item}"></option>`;
-    })
+    .map((item) => (`<option value="${item}"></option>`))
     .join(`\n`);
 };
 

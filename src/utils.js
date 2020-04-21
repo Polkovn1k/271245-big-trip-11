@@ -46,6 +46,13 @@ const checkEventType = (type, arr) => {
   return isActivityType ? `in` : `to`;
 };
 
+const createElement = (template) => {
+  const newElement = document.createElement(`div`);
+  newElement.innerHTML = template;
+
+  return newElement.firstChild;
+};
+
 export {
   getRandomItemFromArray,
   getRandomItemsFromArray,
@@ -56,5 +63,6 @@ export {
   castTimeFormat,
   formatTime,
   timeDuration,
-  checkEventType
+  checkEventType,
+  createElement,
 };

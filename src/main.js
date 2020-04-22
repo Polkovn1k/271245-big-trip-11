@@ -1,15 +1,15 @@
 import {RENDER_POSITION} from './const';
 import {render} from './utils';
-import {Info} from './components/info-template';
-import {Cost} from './components/cost-template';
-import {Menu} from './components/menu-template';
-import {Filter} from './components/filter-template';
-import {Sort} from './components/sort-template';
-import {TripEventItem} from './components/trip-event-item-template';
-import {TripEventEditItem} from './components/event-edit-template';
-import {TripDaysList} from './components/trip-days-list-template';
-import {TripDaysItem} from './components/trip-days-item-template';
-import {TripEventList} from './components/trip-events-list-template';
+import {Info} from './components/info-component';
+import {Cost} from './components/cost-component';
+import {Menu} from './components/menu-component';
+import {Filter} from './components/filter-component';
+import {Sort} from './components/sort-component';
+import {TripEventItem} from './components/trip-event-item-component';
+import {TripEventEditItem} from './components/event-edit-component';
+import {TripDaysList} from './components/trip-days-list-component';
+import {TripDaysItem} from './components/trip-days-item-component';
+import {TripEventList} from './components/trip-events-list-component';
 import {generateTripEventsData} from "./mock-data/trip-event-item-data";
 import {generateTripDays, getTripDaysString} from "./mock-data/trip-event-date-data";
 

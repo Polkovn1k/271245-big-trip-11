@@ -9,13 +9,12 @@ const createCostTemplate = () => {
 };
 
 export class Cost {
-  constructor(data) {
-    this._costData = data;
+  constructor() {
     this._elem = null;
   }
 
   getTemplate() {
-    return createCostTemplate(this._costData);
+    return createCostTemplate();
   }
 
   getElement() {

@@ -10,13 +10,12 @@ const createMenuTemplate = () => {
 };
 
 export class Menu {
-  constructor(data) {
-    this._menuData = data;
+  constructor() {
     this._elem = null;
   }
 
   getTemplate() {
-    return createMenuTemplate(this._menuData);
+    return createMenuTemplate();
   }
 
   getElement() {

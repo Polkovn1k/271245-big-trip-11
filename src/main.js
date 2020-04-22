@@ -75,3 +75,5 @@ tripDaysItem.forEach((item) => {
     });
   tripDays.shift();
 });
+
+console.dir(tripEventItems);

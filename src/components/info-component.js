@@ -1,4 +1,5 @@
 import {MONTH_NAMES} from '../const';
+import {createElement} from '../utils';
 
 const generateTitle = (array) => {
   if (array.length === 1) {
@@ -20,7 +21,7 @@ const generateDates = (array) => {
   return (startMonth === endMonth) ? `${startMonth} ${startDate} — ${endDate}` : `${startDate} ${startMonth} — ${endDate} ${endMonth}`;
 };
 
-export const createInfoTemplate = (eventsArray) => {
+const createInfoTemplate = (eventsArray) => {
 
   const sortedEvents = eventsArray
     .slice()
@@ -35,3 +36,26 @@ export const createInfoTemplate = (eventsArray) => {
     </section>`
   );
 };
+
+export class Info {
+  constructor(data) {
+    this._infoData = data;
+    this._elem = null;
+  }
+
+  getTemplate() {
+    return createInfoTemplate(this._infoData);
+  }
+
+  getElement() {
+    if (!this._elem) {
+      this._elem = createElement(this.getTemplate());
+    }
+
+    return this._elem;
+  }
+
+  removeElement() {
+    this._elem = null;
+  }
+}

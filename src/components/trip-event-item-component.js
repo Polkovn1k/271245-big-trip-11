@@ -1,5 +1,5 @@
-import {formatTime, timeDuration, checkEventType} from '../utils';
 import {ACTIVITY_TYPE} from '../const';
+import {formatTime, timeDuration, checkEventType, createElement} from '../utils';
 
 const getEventSelectedOffersTemplate = (offerData) => {
   return offerData.map((item) => (
@@ -11,7 +11,7 @@ const getEventSelectedOffersTemplate = (offerData) => {
     .join(`\n`);
 };
 
-export const createTripEventItemTemplate = (obj) => {
+const createTripEventItemTemplate = (obj) => {
   const {type, destinationName, offers, price, date} = obj;
   const eventDuration = timeDuration(date.startDate, date.endDate);
 
@@ -48,3 +48,26 @@ export const createTripEventItemTemplate = (obj) => {
     </li>`
   );
 };
+
+export class TripEventItem {
+  constructor(data) {
+    this._tripEventItemData = data;
+    this._elem = null;
+  }
+
+  getTemplate() {
+    return createTripEventItemTemplate(this._tripEventItemData);
+  }
+
+  getElement() {
+    if (!this._elem) {
+      this._elem = createElement(this.getTemplate());
+    }
+
+    return this._elem;
+  }
+
+  removeElement() {
+    this._elem = null;
+  }
+}

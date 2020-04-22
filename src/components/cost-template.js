@@ -8,7 +8,7 @@ const createCostTemplate = () => {
   );
 };
 
-export class CostTemplate {
+export class Cost {
   constructor(data) {
     this._costData = data;
     this._elem = null;

@@ -16,13 +16,14 @@ const createTripDaysItemTemplate = (tripDay, count) => {
 };
 
 export class TripDaysItem {
-  constructor(data) {
+  constructor(data, count) {
     this._tripDaysItemData = data;
+    this._count = count;
     this._elem = null;
   }
 
   getTemplate() {
-    return createTripDaysItemTemplate(this._tripDaysItemData);
+    return createTripDaysItemTemplate(this._tripDaysItemData, this._count);
   }
 
   getElement() {

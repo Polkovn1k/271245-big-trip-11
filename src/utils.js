@@ -53,6 +53,10 @@ const createElement = (template) => {
   return newElement.firstChild;
 };
 
+const render = (container, element, place) => {
+  container.insertAdjacentElement(place, element);
+};
+
 export {
   getRandomItemFromArray,
   getRandomItemsFromArray,
@@ -65,4 +69,5 @@ export {
   timeDuration,
   checkEventType,
   createElement,
+  render,
 };

@@ -10,6 +10,7 @@ import {TripEventEditItem} from './components/event-edit-component';
 import {TripDaysList} from './components/trip-days-list-component';
 import {TripDaysItem} from './components/trip-days-item-component';
 import {TripEventList} from './components/trip-events-list-component';
+import {NoPoints} from './components/no-points-component';
 import {generateTripEventsData} from "./mock-data/trip-event-item-data";
 import {generateTripDays, getTripDaysString} from "./mock-data/trip-event-date-data";
 

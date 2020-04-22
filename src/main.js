@@ -46,17 +46,33 @@ const renderEvent = (eventsContainer, data) => {
   const tripEventItemRollupBtn = tripEventItem.getElement().querySelector(`.event__rollup-btn`);
   const tripEventEditForm = tripEventEditItem.getElement();
 
-  const onRollupBtnClick = () => {
+  const replaceEventToEdit = () => {
     eventsContainer.replaceChild(tripEventEditItem.getElement(), tripEventItem.getElement());
   };
 
-  const onEventEditSubmit = (evt) => {
-    evt.preventDefault();
+  const replaceEditToEvent = () => {
     eventsContainer.replaceChild(tripEventItem.getElement(), tripEventEditItem.getElement());
   };
 
-  tripEventItemRollupBtn.addEventListener(`click`, onRollupBtnClick);
-  tripEventEditForm.addEventListener(`submit`, onEventEditSubmit);
+  const onEscKeyDown = (evt) => {
+    const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
+
+    if (isEscKey) {
+      replaceEditToEvent();
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    }
+  };
+
+  tripEventItemRollupBtn.addEventListener(`click`, () => {
+    replaceEventToEdit();
+    document.addEventListener(`keydown`, onEscKeyDown);
+  });
+
+  tripEventEditForm.addEventListener(`submit`, (evt) => {
+    evt.preventDefault();
+    replaceEditToEvent();
+    document.removeEventListener(`keydown`, onEscKeyDown);
+  });
 
   render(eventsContainer, tripEventItem.getElement(), RENDER_POSITION.BEFOREEND);
 };

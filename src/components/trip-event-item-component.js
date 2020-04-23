@@ -2,12 +2,14 @@ import {ACTIVITY_TYPE} from '../const';
 import {formatTime, timeDuration, checkEventType, createElement} from '../utils';
 
 const getEventSelectedOffersTemplate = (offerData) => {
-  return offerData.map((item) => (
-    `<li class="event__offer">
-      <span class="event__offer-title">${item.title}</span>
-      &plus; &euro;&nbsp;
-      <span class="event__offer-price">${item.price}</span>
-    </li>`))
+  return offerData
+    .filter((item) => item.checked)
+    .map((item) => (
+      `<li class="event__offer">
+        <span class="event__offer-title">${item.title}</span>
+        &plus; &euro;&nbsp;
+        <span class="event__offer-price">${item.price}</span>
+      </li>`))
     .join(`\n`);
 };
 

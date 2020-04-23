@@ -21,30 +21,28 @@ const generateDates = (array) => {
   return (startMonth === endMonth) ? `${startMonth} ${startDate} — ${endDate}` : `${startDate} ${startMonth} — ${endDate} ${endMonth}`;
 };
 
-const createInfoTemplate = (eventsArray) => {
+const createMainInfoTemplate = (eventsArray) => {
 
   const sortedEvents = eventsArray
     .slice()
     .sort((a, b) => new Date(a.date.startDate) - new Date(b.date.startDate));
 
   return (
-    `<section class="trip-main__trip-info  trip-info">
-      <div class="trip-info__main">
-        <h1 class="trip-info__title">${generateTitle(sortedEvents)}</h1>
-        <p class="trip-info__dates">${generateDates(sortedEvents)}</p>
-      </div>
-    </section>`
+    `<div class="trip-info__main">
+      <h1 class="trip-info__title">${generateTitle(sortedEvents)}</h1>
+      <p class="trip-info__dates">${generateDates(sortedEvents)}</p>
+    </div>`
   );
 };
 
-export class Info {
+export class MainInfo {
   constructor(data) {
     this._infoData = data;
     this._elem = null;
   }
 
   getTemplate() {
-    return createInfoTemplate(this._infoData);
+    return createMainInfoTemplate(this._infoData);
   }
 
   getElement() {

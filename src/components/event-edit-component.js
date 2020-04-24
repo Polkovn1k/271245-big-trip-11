@@ -23,7 +23,7 @@ const getEventOfferSelecterTemplate = (offerData) => {
   return offerData
     .map((item, i) => (
       `<div class="event__offer-selector">
-        <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-${i}" type="checkbox" name="event-offer-luggage" ${getCheckedStatus()}>
+        <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-${i}" type="checkbox" name="event-offer-luggage" ${item.checked ? `checked` : ``}>
         <label class="event__offer-label" for="event-offer-luggage-${i}">
           <span class="event__offer-title">${item.title}</span>
             &plus;

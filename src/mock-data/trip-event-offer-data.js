@@ -45,6 +45,7 @@ const getOffersArray = (arrayLength) => {
     .map(() => ({
       title: getRandomItemFromArray(eventOfferTitle),
       price: getRandomNumberFromInterval(randomPriceSettings.MIN_PRICE, randomPriceSettings.MAX_PRICE, randomPriceSettings.MULTIPLE),
+      checked: Math.random() > 0.5 ? true : false,
     }));
 };
 

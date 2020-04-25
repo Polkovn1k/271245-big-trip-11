@@ -90,21 +90,16 @@ const renderEvent = (eventsContainer, data) => {
   render(eventsContainer, tripEventItem, RENDER_POSITION.BEFOREEND);
 };
 
-const renderMainContent = (data) => {
-  const tripDays = generateTripDays(data);
+const tripEventItems = generateTripEventsData(TRIP_EVENT_ITEM_QUANTITY);
+const tripDays = generateTripDays(tripEventItems);
 
-  renderTripMainControls();
-  renderInfo(data);
+renderTripMainControls();
+renderInfo(tripEventItems);
 
-  if (!tripEventItems.length) {
-    render(tripEventsTitle, new NoPoints(), RENDER_POSITION.AFTEREND);
-    return;
-  }
-
+if (!tripEventItems.length) {
+  render(tripEventsTitle, new NoPoints(), RENDER_POSITION.AFTEREND);
+} else {
   render(tripEventsTitle, new Sort(), RENDER_POSITION.BEFOREBEGIN);
   renderTripDays(tripDays);
   renderTripEventItems(tripDays);
-};
-
-const tripEventItems = generateTripEventsData(TRIP_EVENT_ITEM_QUANTITY);
-renderMainContent(tripEventItems);
+}

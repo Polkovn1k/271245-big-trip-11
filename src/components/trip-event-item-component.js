@@ -1,5 +1,5 @@
 import {ACTIVITY_TYPE} from '../const';
-import {formatTime, timeDuration, checkEventType} from '../utils';
+import {formatTime, timeDuration, checkEventType} from '../utils/common';
 import {AbstractComponent} from "./abstract-component.js";
 
 const getEventSelectedOffersTemplate = (offerData) => {

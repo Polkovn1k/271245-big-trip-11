@@ -14,10 +14,9 @@ import {NoPoints} from './components/no-points-component';
 import {generateTripEventsData} from "./mock-data/trip-event-item-data";
 import {generateTripDays, getTripDaysString} from "./mock-data/trip-event-date-data";
 
-const TRIP_EVENT_ITEM_QUANTITY = 20;
+const TRIP_EVENT_ITEM_QUANTITY = 0;
 const tripMain = document.querySelector(`.trip-main`);
 const tripEvents = document.querySelector(`.trip-events`);
-const tripEventsTitle = tripEvents.querySelector(`.trip-events h2:first-child`);
 
 const renderInfo = (infoData) => {
   const infoContainer = new InfoContainer();
@@ -38,7 +37,7 @@ const renderTripMainControls = () => {
 
 const renderTripDays = (tripDays) => {
   const tripDaysList = new TripDaysList();
-  render(tripEventsTitle, tripDaysList, RENDER_POSITION.AFTEREND);
+  render(tripEvents, tripDaysList, RENDER_POSITION.BEFOREEND);
 
   Array.from(tripDays)
     .forEach((item, i) => {
@@ -94,11 +93,11 @@ const renderMainContent = (data) => {
   const tripDays = generateTripDays(data);
 
   if (!tripEventItems.length) {
-    render(tripEventsTitle, new NoPoints(), RENDER_POSITION.AFTEREND);
+    render(tripEvents, new NoPoints(), RENDER_POSITION.BEFOREEND);
     return;
   }
 
-  render(tripEventsTitle, new Sort(), RENDER_POSITION.BEFOREBEGIN);
+  render(tripEvents, new Sort(), RENDER_POSITION.BEFOREEND);
   renderTripDays(tripDays);
   renderTripEventItems(tripDays);
 };

@@ -8,16 +8,6 @@ import {TripEventList} from '../components/trip-events-list-component';
 import {NoPoints} from '../components/no-points-component';
 import {generateTripDays, getTripDaysString} from "../mock-data/trip-event-date-data";
 
-const renderTripDays = (container, tripDays) => {
-  const tripDaysList = new TripDaysList();
-  render(container, tripDaysList, RENDER_POSITION.BEFOREEND);
-
-  Array.from(tripDays)
-    .forEach((item, i) => {
-      render(tripDaysList.getElement(), new TripDaysItem(item, i + 1), RENDER_POSITION.BEFOREEND);
-    });
-};
-
 const renderEvent = (eventsContainer, data) => {
   const tripEventItem = new TripEventItem(data);
   const tripEventEditItem = new TripEventEditItem(data);
@@ -62,25 +52,32 @@ const renderTripEventItems = (container, tripDays, data) => {
   });
 };
 
-const renderMainContent = (container, data) => {
-  const tripDays = generateTripDays(data);
-
-  if (!data.length) {
-    render(container, new NoPoints(), RENDER_POSITION.BEFOREEND);
-    return;
-  }
-
-  render(container, new Sort(), RENDER_POSITION.BEFOREEND);
-  renderTripDays(container, tripDays);
-  renderTripEventItems(container, tripDays, data);
-};
-
 export class TripController {
   constructor(container) {
     this._container = container;
+
+    this._sortComponent = new Sort();
+    this._tripDaysListComponent = new TripDaysList();
+    this._noPointsComponent = new NoPoints();
   }
 
   render(data) {
-    renderMainContent(this._container, data);
+    const container = this._container;
+    const tripDays = generateTripDays(data);
+
+    if (!data.length) {
+      render(container, this._noPointsComponent, RENDER_POSITION.BEFOREEND);
+      return;
+    }
+
+    render(container, this._sortComponent, RENDER_POSITION.BEFOREEND);
+    render(container, this._tripDaysListComponent, RENDER_POSITION.BEFOREEND);
+
+    Array.from(tripDays)
+      .forEach((item, i) => {
+        render(this._tripDaysListComponent.getElement(), new TripDaysItem(item, i + 1), RENDER_POSITION.BEFOREEND);
+      });
+
+    renderTripEventItems(container, tripDays, data);
   }
 }

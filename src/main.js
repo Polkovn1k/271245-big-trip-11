@@ -66,8 +66,6 @@ const renderTripEventItems = (tripDays) => {
 const renderEvent = (eventsContainer, data) => {
   const tripEventItem = new TripEventItem(data);
   const tripEventEditItem = new TripEventEditItem(data);
-  const tripEventItemRollupBtn = tripEventItem.getElement().querySelector(`.event__rollup-btn`);
-  const tripEventEditForm = tripEventEditItem.getElement();
 
   const onEscKeyDown = (evt) => {
     const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
@@ -78,12 +76,12 @@ const renderEvent = (eventsContainer, data) => {
     }
   };
 
-  tripEventItemRollupBtn.addEventListener(`click`, () => {
+  tripEventItem.setEditButtonClickHandler(() => {
     replace(tripEventEditItem, tripEventItem);
     document.addEventListener(`keydown`, onEscKeyDown);
   });
 
-  tripEventEditForm.addEventListener(`submit`, (evt) => {
+  tripEventEditItem.setSubmitHandler((evt) => {
     evt.preventDefault();
     replace(tripEventItem, tripEventEditItem);
     document.removeEventListener(`keydown`, onEscKeyDown);

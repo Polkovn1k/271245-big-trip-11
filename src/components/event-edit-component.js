@@ -149,4 +149,9 @@ export class TripEventEditItem extends AbstractComponent {
   getTemplate() {
     return createEventEditTemplate(this._tripEventEditItemData);
   }
+
+  setSubmitHandler(handler) {
+    this.getElement()
+      .addEventListener(`submit`, handler);
+  }
 }

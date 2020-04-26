@@ -1,4 +1,4 @@
-import {AbstractComponent} from "./abstract-component.js";
+import AbstractComponent from "./abstract-component.js";
 
 const createSortTemplate = () => {
   return (
@@ -35,7 +35,7 @@ const createSortTemplate = () => {
   );
 };
 
-export class Sort extends AbstractComponent {
+export default class Sort extends AbstractComponent {
   getTemplate() {
     return createSortTemplate();
   }

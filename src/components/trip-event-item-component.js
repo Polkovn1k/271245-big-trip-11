@@ -1,6 +1,6 @@
 import {ACTIVITY_TYPE} from '../const';
 import {formatTime, timeDuration, checkEventType} from '../utils/common';
-import {AbstractComponent} from "./abstract-component.js";
+import AbstractComponent from "./abstract-component.js";
 
 const getEventSelectedOffersTemplate = (offerData) => {
   return offerData
@@ -52,7 +52,7 @@ const createTripEventItemTemplate = (obj) => {
   );
 };
 
-export class TripEventItem extends AbstractComponent {
+export default class TripEventItem extends AbstractComponent {
   constructor(data) {
     super();
     this._tripEventItemData = data;

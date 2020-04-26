@@ -1,5 +1,5 @@
 import {MONTH_NAMES} from '../const';
-import {AbstractComponent} from "./abstract-component.js";
+import AbstractComponent from "./abstract-component.js";
 
 const createTripDaysItemTemplate = (tripDay, count) => {
   const month = MONTH_NAMES[new Date(tripDay).getMonth()];
@@ -15,7 +15,7 @@ const createTripDaysItemTemplate = (tripDay, count) => {
   );
 };
 
-export class TripDaysItem extends AbstractComponent {
+export default class TripDaysItem extends AbstractComponent {
   constructor(data, count) {
     super();
     this._tripDaysItemData = data;

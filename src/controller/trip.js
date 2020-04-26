@@ -1,16 +1,16 @@
 import {RENDER_POSITION, render, replace} from '../utils/render';
-import {Sort} from '../components/sort-component';
-import {TripEventItem} from '../components/trip-event-item-component';
-import {TripEventEditItem} from '../components/event-edit-component';
-import {TripDaysList} from '../components/trip-days-list-component';
-import {TripDaysItem} from '../components/trip-days-item-component';
-import {TripEventList} from '../components/trip-events-list-component';
-import {NoPoints} from '../components/no-points-component';
+import Sort from '../components/sort-component';
+import TripEventItem from '../components/trip-event-item-component';
+import TripEventEditItem from '../components/event-edit-component';
+import TripDaysList from '../components/trip-days-list-component';
+import TripDaysItem from '../components/trip-days-item-component';
+import TripEventList from '../components/trip-events-list-component';
+import NoPoints from '../components/no-points-component';
 import {generateTripDays, getTripDaysString} from "../mock-data/trip-event-date-data";
 
-const renderEvent = (eventsContainer, data) => {
-  const tripEventItem = new TripEventItem(data);
-  const tripEventEditItem = new TripEventEditItem(data);
+const renderEvent = (eventsContainer, eventItemData) => {
+  const tripEventItem = new TripEventItem(eventItemData);
+  const tripEventEditItem = new TripEventEditItem(eventItemData);
 
   const onEscKeyDown = (evt) => {
     const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
@@ -35,13 +35,13 @@ const renderEvent = (eventsContainer, data) => {
   render(eventsContainer, tripEventItem, RENDER_POSITION.BEFOREEND);
 };
 
-const renderTripEventItems = (container, tripDays, data) => {
+const renderTripEventItems = (container, tripDays, eventDataList) => {
   const tripDaysItem = container.querySelectorAll(`.trip-days__item`);
   tripDaysItem.forEach((item) => {
     render(item, new TripEventList(), RENDER_POSITION.BEFOREEND);
     const tripEventsList = item.querySelector(`.trip-events__list`);
 
-    data
+    eventDataList
       .slice()
       .sort((a, b) => new Date(a.date.startDate) - new Date(b.date.startDate))
       .filter((eventItem) => getTripDaysString(eventItem) === tripDays[0])
@@ -52,7 +52,7 @@ const renderTripEventItems = (container, tripDays, data) => {
   });
 };
 
-export class TripController {
+export default class Trip {
   constructor(container) {
     this._container = container;
 
@@ -61,11 +61,11 @@ export class TripController {
     this._noPointsComponent = new NoPoints();
   }
 
-  render(data) {
+  render(eventDataList) {
     const container = this._container;
-    const tripDays = generateTripDays(data);
+    const tripDays = generateTripDays(eventDataList);
 
-    if (!data.length) {
+    if (!eventDataList.length) {
       render(container, this._noPointsComponent, RENDER_POSITION.BEFOREEND);
       return;
     }
@@ -78,6 +78,6 @@ export class TripController {
         render(this._tripDaysListComponent.getElement(), new TripDaysItem(item, i + 1), RENDER_POSITION.BEFOREEND);
       });
 
-    renderTripEventItems(container, tripDays, data);
+    renderTripEventItems(container, tripDays, eventDataList);
   }
 }

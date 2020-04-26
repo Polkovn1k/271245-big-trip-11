@@ -1,4 +1,4 @@
-import {AbstractComponent} from "./abstract-component.js";
+import AbstractComponent from "./abstract-component.js";
 
 const createInfoContainerTemplate = () => {
   return (
@@ -6,7 +6,7 @@ const createInfoContainerTemplate = () => {
   );
 };
 
-export class InfoContainer extends AbstractComponent {
+export default class InfoContainer extends AbstractComponent {
   getTemplate() {
     return createInfoContainerTemplate();
   }

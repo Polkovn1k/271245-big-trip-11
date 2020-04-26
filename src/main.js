@@ -1,10 +1,10 @@
 import {RENDER_POSITION, render} from './utils/render';
-import {InfoContainer} from './components/info-container-component';
-import {MainInfo} from './components/main-info-component';
-import {Cost} from './components/cost-component';
-import {Menu} from './components/menu-component';
-import {Filter} from './components/filter-component';
-import {TripController} from './controller/trip-controller';
+import InfoContainer from './components/info-container-component';
+import MainInfo from './components/main-info-component';
+import Cost from './components/cost-component';
+import Menu from './components/menu-component';
+import Filter from './components/filter-component';
+import TripController from './controller/trip';
 import {generateTripEventsData} from "./mock-data/trip-event-item-data";
 
 const TRIP_EVENT_ITEM_QUANTITY = 20;

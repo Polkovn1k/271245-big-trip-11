@@ -1,4 +1,4 @@
-import {AbstractComponent} from "./abstract-component.js";
+import AbstractComponent from "./abstract-component.js";
 
 const createCostTemplate = () => {
   return (
@@ -8,7 +8,7 @@ const createCostTemplate = () => {
   );
 };
 
-export class Cost extends AbstractComponent {
+export default class Cost extends AbstractComponent {
   getTemplate() {
     return createCostTemplate();
   }

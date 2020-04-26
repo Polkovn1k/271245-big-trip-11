@@ -1,5 +1,5 @@
 import {MONTH_NAMES} from '../const';
-import {AbstractComponent} from "./abstract-component.js";
+import AbstractComponent from "./abstract-component.js";
 
 const generateTitle = (array) => {
   if (array.length === 1) {
@@ -35,7 +35,7 @@ const createMainInfoTemplate = (eventsArray) => {
   );
 };
 
-export class MainInfo extends AbstractComponent {
+export default class MainInfo extends AbstractComponent {
   constructor(data) {
     super();
     this._infoData = data;

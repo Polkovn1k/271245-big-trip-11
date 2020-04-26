@@ -1,6 +1,6 @@
 import {TRANSFER_TYPE, ACTIVITY_TYPE, EVENT_DESTINATION} from '../const';
 import {formatTime, checkEventType, castTimeFormat} from '../utils/common';
-import {AbstractComponent} from "./abstract-component.js";
+import AbstractComponent from "./abstract-component.js";
 
 const getCheckedStatus = () => (`${Math.random() > 0.5 ? `checked` : ``}`);
 
@@ -140,7 +140,7 @@ const createEventEditTemplate = (obj) => {
   );
 };
 
-export class TripEventEditItem extends AbstractComponent {
+export default class TripEventEditItem extends AbstractComponent {
   constructor(data) {
     super();
     this._tripEventEditItemData = data;

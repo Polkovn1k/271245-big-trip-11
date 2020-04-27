@@ -1,5 +1,6 @@
 import {ACTIVITY_TYPE} from '../const';
-import {formatTime, timeDuration, checkEventType, createElement} from '../utils';
+import {formatTime, timeDuration, checkEventType} from '../utils/common';
+import AbstractComponent from "./abstract-component.js";
 
 const getEventSelectedOffersTemplate = (offerData) => {
   return offerData
@@ -51,25 +52,18 @@ const createTripEventItemTemplate = (obj) => {
   );
 };
 
-export class TripEventItem {
+export default class TripEventItem extends AbstractComponent {
   constructor(data) {
+    super();
     this._tripEventItemData = data;
-    this._elem = null;
   }
 
   getTemplate() {
     return createTripEventItemTemplate(this._tripEventItemData);
   }
 
-  getElement() {
-    if (!this._elem) {
-      this._elem = createElement(this.getTemplate());
-    }
-
-    return this._elem;
-  }
-
-  removeElement() {
-    this._elem = null;
+  setEditButtonClickHandler(handler) {
+    this.getElement().querySelector(`.event__rollup-btn`)
+      .addEventListener(`click`, handler);
   }
 }

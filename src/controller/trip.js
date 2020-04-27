@@ -73,10 +73,9 @@ export default class Trip {
     render(container, this._sortComponent, RENDER_POSITION.BEFOREEND);
     render(container, this._tripDaysListComponent, RENDER_POSITION.BEFOREEND);
 
-    Array.from(tripDays)
-      .forEach((item, i) => {
-        render(this._tripDaysListComponent.getElement(), new TripDaysItem(item, i + 1), RENDER_POSITION.BEFOREEND);
-      });
+    tripDays.forEach((item, i) => {
+      render(this._tripDaysListComponent.getElement(), new TripDaysItem(item, i + 1), RENDER_POSITION.BEFOREEND);
+    });
 
     renderTripEventItems(container, tripDays, eventDataList);
   }

@@ -57,10 +57,16 @@ const MONTH_NAMES = [
   `DEC`,
 ];
 
-const RANDOM_PRICE_SETTINGS = {
+const sortTypeTitle = {
+  EVENT: `sort-event`,
+  TIME: `sort-time`,
+  PRICE: `sort-price`,
+};
+
+const randomPriceSettings = {
   MIN_PRICE: 1000,
   MAX_PRICE: 10000,
   MULTIPLE: 10,
 };
 
-export {TRANSFER_TYPE, ACTIVITY_TYPE, EVENT_DESTINATION, MONTH_NAMES, RANDOM_PRICE_SETTINGS};
+export {TRANSFER_TYPE, ACTIVITY_TYPE, EVENT_DESTINATION, MONTH_NAMES, randomPriceSettings, sortTypeTitle};

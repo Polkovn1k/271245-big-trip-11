@@ -1,5 +1,6 @@
+import {sortTypeTitle} from '../const';
 import {RENDER_POSITION, render, replace} from '../utils/render';
-import Sort, {SORT_TYPE} from '../components/sort-component';
+import Sort from '../components/sort-component';
 import TripEventItem from '../components/trip-event-item-component';
 import TripEventEditItem from '../components/event-edit-component';
 import TripDaysList from '../components/trip-days-list-component';
@@ -13,13 +14,13 @@ const getSortedEventsData = (eventDataList, sortType) => {
   const showingEvents = eventDataList.slice();
 
   switch (sortType) {
-    case SORT_TYPE.EVENT:
+    case sortTypeTitle.EVENT:
       sortedEvents = showingEvents;
       break;
-    case SORT_TYPE.TIME:
+    case sortTypeTitle.TIME:
       sortedEvents = showingEvents.sort((a, b) => (new Date(b.date.endDate) - new Date(b.date.startDate)) - (new Date(a.date.endDate) - new Date(a.date.startDate)));
       break;
-    case SORT_TYPE.PRICE:
+    case sortTypeTitle.PRICE:
       sortedEvents = showingEvents.sort((a, b) => b.price - a.price);
       break;
   }
@@ -103,7 +104,7 @@ export default class Trip {
       this._sortComponent.getElement().querySelector(`#${sortType}`).checked = true;
       this._tripDaysListComponent.getElement().innerHTML = ``;
 
-      if (sortType === SORT_TYPE.EVENT) {
+      if (sortType === sortTypeTitle.EVENT) {
         renderDefaultEvents();
         return;
       }

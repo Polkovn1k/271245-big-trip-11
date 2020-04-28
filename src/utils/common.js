@@ -23,14 +23,12 @@ const formatTime = (date) => {
   return `${hours}:${minutes}`;
 };
 
+const timeDuration = (start, end) => {
+  const diff = end.getTime() - start.getTime();
+  const minutes = Math.floor(diff / 60000 % 60);
+  const hours = Math.floor(diff / 3600000 % 24);
+  const days = Math.floor(diff / 86400000);
 
-function timeDuration(start, end) {
-  const startTime = start.getTime();
-  const endTime = end.getTime();
-  const diff = endTime - startTime;
-  const days = new Date(endTime).getDay() - new Date(startTime).getDay();
-  const hours = new Date(endTime).getHours() - new Date(startTime).getHours();
-  const minutes = new Date(diff - (hours * (24 * 3600 * 1000))).getMinutes();
   const duration = {
     days: days > 0 ? `${castTimeFormat(days)}D ` : ``,
     hours: hours > 0 ? `${castTimeFormat(hours)}H ` : ``,
@@ -38,7 +36,7 @@ function timeDuration(start, end) {
   };
 
   return `${duration.days}${duration.hours}${duration.minutes}`;
-}
+};
 
 const checkEventType = (type, arr) => {
   const isActivityType = arr.some((item) => item === type);

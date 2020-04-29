@@ -1,12 +1,13 @@
 import {sortTypeTitle} from '../const';
 import {RENDER_POSITION, render, replace} from '../utils/render';
 import Sort from '../components/sort-component';
-import TripEventItem from '../components/trip-event-item-component';
-import TripEventEditItem from '../components/event-edit-component';
+/*import TripEventItem from '../components/trip-event-item-component';*/
+/*import TripEventEditItem from '../components/event-edit-component';*/
 import TripDaysList from '../components/trip-days-list-component';
 import TripDaysItem from '../components/trip-days-item-component';
 import TripEventList from '../components/trip-events-list-component';
 import NoPoints from '../components/no-points-component';
+import PointController from "./point.js";
 import {generateTripDays, getTripDaysString} from "../mock-data/trip-event-date-data";
 
 const getSortedEventsData = (eventDataList, sortType) => {
@@ -28,7 +29,7 @@ const getSortedEventsData = (eventDataList, sortType) => {
   return sortedEvents;
 };
 
-const renderEvent = (eventsContainer, eventItemData) => {
+/*const renderEvent = (eventsContainer, eventItemData) => {
   const tripEventItem = new TripEventItem(eventItemData);
   const tripEventEditItem = new TripEventEditItem(eventItemData);
 
@@ -53,7 +54,7 @@ const renderEvent = (eventsContainer, eventItemData) => {
   });
 
   render(eventsContainer, tripEventItem, RENDER_POSITION.BEFOREEND);
-};
+};*/
 
 const renderTripEventItems = (container, eventDataList, tripDay) => {
   render(container, new TripEventList(), RENDER_POSITION.BEFOREEND);

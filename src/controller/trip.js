@@ -1,8 +1,6 @@
 import {sortTypeTitle} from '../const';
 import {RENDER_POSITION, render, replace} from '../utils/render';
 import Sort from '../components/sort-component';
-/*import TripEventItem from '../components/trip-event-item-component';*/
-/*import TripEventEditItem from '../components/event-edit-component';*/
 import TripDaysList from '../components/trip-days-list-component';
 import TripDaysItem from '../components/trip-days-item-component';
 import TripEventList from '../components/trip-events-list-component';
@@ -29,33 +27,6 @@ const getSortedEventsData = (eventDataList, sortType) => {
   return sortedEvents;
 };
 
-/*const renderEvent = (eventsContainer, eventItemData) => {
-  const tripEventItem = new TripEventItem(eventItemData);
-  const tripEventEditItem = new TripEventEditItem(eventItemData);
-
-  const onEscKeyDown = (evt) => {
-    const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
-
-    if (isEscKey) {
-      replace(tripEventItem, tripEventEditItem);
-      document.removeEventListener(`keydown`, onEscKeyDown);
-    }
-  };
-
-  tripEventItem.setEditButtonClickHandler(() => {
-    replace(tripEventEditItem, tripEventItem);
-    document.addEventListener(`keydown`, onEscKeyDown);
-  });
-
-  tripEventEditItem.setSubmitHandler((evt) => {
-    evt.preventDefault();
-    replace(tripEventItem, tripEventEditItem);
-    document.removeEventListener(`keydown`, onEscKeyDown);
-  });
-
-  render(eventsContainer, tripEventItem, RENDER_POSITION.BEFOREEND);
-};*/
-
 const renderTripEventItems = (container, eventDataList, tripDay) => {
   render(container, new TripEventList(), RENDER_POSITION.BEFOREEND);
   const tripEventsList = container.querySelector(`.trip-events__list`);
@@ -68,52 +39,58 @@ const renderTripEventItems = (container, eventDataList, tripDay) => {
   });
 };
 
+const renderDefaultTripEventItems = (tripDays, container, tripDaysListComponent, eventDataList) => {
+  tripDays.forEach((item, i) => {
+    render(tripDaysListComponent.getElement(), new TripDaysItem(item, i + 1), RENDER_POSITION.BEFOREEND);
+  });
+
+  const tripDaysItem = container.querySelectorAll(`.trip-days__item`);
+  tripDaysItem.forEach((tripDayItem, i) => {
+    renderTripEventItems(tripDayItem, eventDataList, tripDays[i]);
+  });
+};
+
 export default class Trip {
   constructor(container) {
     this._container = container;
 
+    this._eventsData = [];
     this._sortComponent = new Sort();
     this._tripDaysListComponent = new TripDaysList();
     this._noPointsComponent = new NoPoints();
+    this._onSortTypeChange = this._onSortTypeChange.bind(this);
+    this._sortComponent.setSortTypeChangeHandler(this._onSortTypeChange);
   }
 
   render(eventDataList) {
+    this._eventsData = eventDataList;
     const container = this._container;
-    const tripDays = generateTripDays(eventDataList);
+    const tripDays = generateTripDays(this._eventsData);
 
-    if (!eventDataList.length) {
+    if (!this._eventsData.length) {
       render(container, this._noPointsComponent, RENDER_POSITION.BEFOREEND);
       return;
     }
 
-    const renderDefaultEvents = () => {
-      tripDays.forEach((item, i) => {
-        render(this._tripDaysListComponent.getElement(), new TripDaysItem(item, i + 1), RENDER_POSITION.BEFOREEND);
-      });
-
-      const tripDaysItem = container.querySelectorAll(`.trip-days__item`);
-      tripDaysItem.forEach((tripDayItem, i) => {
-        renderTripEventItems(tripDayItem, eventDataList, tripDays[i]);
-      });
-    };
-
     render(container, this._sortComponent, RENDER_POSITION.BEFOREEND);
     render(container, this._tripDaysListComponent, RENDER_POSITION.BEFOREEND);
-    renderDefaultEvents();
+    renderDefaultTripEventItems(tripDays, container, this._tripDaysListComponent, this._eventsData);
+  }
 
-    this._sortComponent.setSortTypeChangeHandler((sortType) => {
-      this._sortComponent.getElement().querySelector(`#${sortType}`).checked = true;
-      this._tripDaysListComponent.getElement().innerHTML = ``;
+  _onSortTypeChange(sortType) {
+    const container = this._container;
+    const tripDays = generateTripDays(this._eventsData);
+    this._sortComponent.getElement().querySelector(`#${sortType}`).checked = true;
+    this._tripDaysListComponent.getElement().innerHTML = ``;
 
-      if (sortType === sortTypeTitle.EVENT) {
-        renderDefaultEvents();
-        return;
-      }
+    if (sortType === sortTypeTitle.EVENT) {
+      renderDefaultTripEventItems(tripDays, container, this._tripDaysListComponent, this._eventsData);
+      return;
+    }
 
-      render(this._tripDaysListComponent.getElement(), new TripDaysItem(), RENDER_POSITION.BEFOREEND);
-      const dataList = getSortedEventsData(eventDataList, sortType);
-      const newContainer = container.querySelector(`.trip-days__item`);
-      renderTripEventItems(newContainer, dataList);
-    });
+    render(this._tripDaysListComponent.getElement(), new TripDaysItem(), RENDER_POSITION.BEFOREEND);
+    const dataList = getSortedEventsData(this._eventsData, sortType);
+    const newContainer = container.querySelector(`.trip-days__item`);
+    renderTripEventItems(newContainer, dataList);
   }
 }

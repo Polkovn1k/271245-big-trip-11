@@ -27,6 +27,7 @@ const getSortedEventsData = (eventDataList, sortType) => {
   return sortedEvents;
 };
 
+
 const renderTripEventItems = (container, eventDataList, tripDay) => {
   render(container, new TripEventList(), RENDER_POSITION.BEFOREEND);
   const tripEventsList = container.querySelector(`.trip-events__list`);
@@ -34,19 +35,25 @@ const renderTripEventItems = (container, eventDataList, tripDay) => {
     eventDataList.slice().filter((eventItem) => getTripDaysString(eventItem) === tripDay) :
     eventDataList.slice();
 
-  dataList.forEach((currentDayEvent) => {
-    renderEvent(tripEventsList, currentDayEvent);
+
+  return dataList.map((currentDayEvent) => {
+    const eventController = new PointController(tripEventsList);
+
+    eventController.render(currentDayEvent);
+
+    return eventController;
   });
 };
 
-const renderDefaultTripEventItems = (tripDays, container, tripDaysListComponent, eventDataList) => {
+const renderDefaultTripEventItems = (tripDays, container, tripDaysListComponent, eventDataList, observerList) => {
   tripDays.forEach((item, i) => {
     render(tripDaysListComponent.getElement(), new TripDaysItem(item, i + 1), RENDER_POSITION.BEFOREEND);
   });
 
   const tripDaysItem = container.querySelectorAll(`.trip-days__item`);
+  observerList = [];
   tripDaysItem.forEach((tripDayItem, i) => {
-    renderTripEventItems(tripDayItem, eventDataList, tripDays[i]);
+    observerList = observerList.concat(renderTripEventItems(tripDayItem, eventDataList, tripDays[i]));
   });
 };
 
@@ -55,6 +62,7 @@ export default class Trip {
     this._container = container;
 
     this._eventsData = [];
+    this._showedEventControllers = [];
     this._sortComponent = new Sort();
     this._tripDaysListComponent = new TripDaysList();
     this._noPointsComponent = new NoPoints();
@@ -74,7 +82,7 @@ export default class Trip {
 
     render(container, this._sortComponent, RENDER_POSITION.BEFOREEND);
     render(container, this._tripDaysListComponent, RENDER_POSITION.BEFOREEND);
-    renderDefaultTripEventItems(tripDays, container, this._tripDaysListComponent, this._eventsData);
+    renderDefaultTripEventItems(tripDays, container, this._tripDaysListComponent, this._eventsData, this._showedEventControllers);
   }
 
   _onSortTypeChange(sortType) {
@@ -84,13 +92,13 @@ export default class Trip {
     this._tripDaysListComponent.getElement().innerHTML = ``;
 
     if (sortType === sortTypeTitle.EVENT) {
-      renderDefaultTripEventItems(tripDays, container, this._tripDaysListComponent, this._eventsData);
+      renderDefaultTripEventItems(tripDays, container, this._tripDaysListComponent, this._eventsData, this._showedEventControllers);
       return;
     }
 
     render(this._tripDaysListComponent.getElement(), new TripDaysItem(), RENDER_POSITION.BEFOREEND);
     const dataList = getSortedEventsData(this._eventsData, sortType);
     const newContainer = container.querySelector(`.trip-days__item`);
-    renderTripEventItems(newContainer, dataList);
+    this._showedEventControllers = renderTripEventItems(newContainer, dataList);
   }
 }

@@ -154,4 +154,10 @@ export default class TripEventEditItem extends AbstractComponent {
     this.getElement()
       .addEventListener(`submit`, handler);
   }
+
+  setFavoritesButtonClickHandler(handler) {
+    this.getElement()
+      .querySelector(`.event__favorite-btn`)
+      .addEventListener(`click`, handler);
+  }
 }

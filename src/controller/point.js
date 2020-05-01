@@ -1,4 +1,4 @@
-import {RENDER_POSITION, render, replace} from '../utils/render';
+import {renderPosition, render, replace} from '../utils/render';
 import TripEventItem from '../components/trip-event-item-component';
 import TripEventEditItem from '../components/event-edit-component';
 
@@ -33,7 +33,7 @@ export default class Point {
       }));
     });
 
-    render(this._container, this._tripEventItem, RENDER_POSITION.BEFOREEND);
+    render(this._container, this._tripEventItem, renderPosition.BEFOREEND);
   }
 
   _onEscKeyDown(evt) {

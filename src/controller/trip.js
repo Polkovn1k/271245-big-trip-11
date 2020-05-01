@@ -1,5 +1,5 @@
 import {sortTypeTitle} from '../const';
-import {RENDER_POSITION, render, replace} from '../utils/render';
+import {renderPosition, render} from '../utils/render';
 import Sort from '../components/sort-component';
 import TripDaysList from '../components/trip-days-list-component';
 import TripDaysItem from '../components/trip-days-item-component';
@@ -27,40 +27,13 @@ const getSortedEventsData = (eventDataList, sortType) => {
   return sortedEvents;
 };
 
-
-const renderTripEventItems = (container, eventDataList, tripDay, onDataChange) => {
-  render(container, new TripEventList(), RENDER_POSITION.BEFOREEND);
-  const tripEventsList = container.querySelector(`.trip-events__list`);
-  const dataList = tripDay ?
-    eventDataList.slice().filter((eventItem) => getTripDaysString(eventItem) === tripDay) :
-    eventDataList.slice();
-
-  return dataList.map((currentDayEvent) => {
-    const eventController = new PointController(tripEventsList, onDataChange);
-    eventController.render(currentDayEvent);
-
-    return eventController;
-  });
-};
-
-const renderDefaultTripEventItems = (tripDays, container, tripDaysListComponent, eventDataList, tripController, onDataChange) => {
-  tripDays.forEach((item, i) => {
-    render(tripDaysListComponent.getElement(), new TripDaysItem(item, i + 1), RENDER_POSITION.BEFOREEND);
-  });
-
-  const tripDaysItem = container.querySelectorAll(`.trip-days__item`);
-  tripController._showedEventControllers = [];
-  tripDaysItem.forEach((tripDayItem, i) => {
-    tripController._showedEventControllers = tripController._showedEventControllers.concat(renderTripEventItems(tripDayItem, eventDataList, tripDays[i], onDataChange));
-  });
-};
-
 export default class Trip {
   constructor(container) {
     this._container = container;
 
     this._eventsData = [];
     this._showedEventControllers = [];
+    this._tripDays = null;
     this._sortComponent = new Sort();
     this._tripDaysListComponent = new TripDaysList();
     this._noPointsComponent = new NoPoints();
@@ -69,36 +42,63 @@ export default class Trip {
     this._sortComponent.setSortTypeChangeHandler(this._onSortTypeChange);
   }
 
+  _renderDay(eventsData, tripDay, dayCount) {
+    this._showedEventControllers = [];
+
+    const dayComponent = tripDay
+      ? new TripDaysItem(tripDay, dayCount + 1)
+      : new TripDaysItem();
+    const eventList = new TripEventList();
+
+    render(this._tripDaysListComponent.getElement(), dayComponent, renderPosition.BEFOREEND);
+    render(dayComponent.getElement(), eventList, renderPosition.BEFOREEND);
+
+    eventsData.forEach((event) => {
+      const pointController = new PointController(eventList.getElement(), this._onDataChange);
+      this._showedEventControllers.push(pointController);
+      pointController.render(event);
+    });
+  }
+
   render(eventDataList) {
     this._eventsData = eventDataList;
+    this._tripDays = generateTripDays(this._eventsData);
     const container = this._container;
-    const tripDays = generateTripDays(this._eventsData);
 
     if (!this._eventsData.length) {
-      render(container, this._noPointsComponent, RENDER_POSITION.BEFOREEND);
+      render(container, this._noPointsComponent, renderPosition.BEFOREEND);
       return;
     }
 
-    render(container, this._sortComponent, RENDER_POSITION.BEFOREEND);
-    render(container, this._tripDaysListComponent, RENDER_POSITION.BEFOREEND);
-    renderDefaultTripEventItems(tripDays, container, this._tripDaysListComponent, this._eventsData, this, this._onDataChange);
+    render(container, this._sortComponent, renderPosition.BEFOREEND);
+    render(container, this._tripDaysListComponent, renderPosition.BEFOREEND);
+
+    this._tripDays
+      .slice()
+      .forEach((currentTripDay, count) => {
+        const currentEventData = this._eventsData
+          .filter((eventItem) => getTripDaysString(eventItem) === currentTripDay);
+        this._renderDay(currentEventData, currentTripDay, count);
+      });
   }
 
   _onSortTypeChange(sortType) {
-    const container = this._container;
-    const tripDays = generateTripDays(this._eventsData);
     this._sortComponent.getElement().querySelector(`#${sortType}`).checked = true;
     this._tripDaysListComponent.getElement().innerHTML = ``;
 
     if (sortType === sortTypeTitle.EVENT) {
-      renderDefaultTripEventItems(tripDays, container, this._tripDaysListComponent, this._eventsData, this, this._onDataChange);
+      this._tripDays
+        .slice()
+        .forEach((currentTripDay, count) => {
+          const currentEventData = this._eventsData
+            .filter((eventItem) => getTripDaysString(eventItem) === currentTripDay);
+          this._renderDay(currentEventData, currentTripDay, count);
+        });
       return;
     }
 
-    render(this._tripDaysListComponent.getElement(), new TripDaysItem(), RENDER_POSITION.BEFOREEND);
-    const dataList = getSortedEventsData(this._eventsData, sortType);
-    const newContainer = container.querySelector(`.trip-days__item`);
-    this._showedEventControllers = renderTripEventItems(newContainer, dataList);
+    const sortedDataList = getSortedEventsData(this._eventsData, sortType);
+    this._renderDay(sortedDataList);
   }
 
   _notify(index) {

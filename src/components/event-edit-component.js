@@ -1,6 +1,6 @@
 import {TRANSFER_TYPE, ACTIVITY_TYPE, EVENT_DESTINATION} from '../const';
 import {formatTime, checkEventType, castTimeFormat} from '../utils/common';
-import AbstractComponent from "./abstract-component.js";
+import AbstractSmartComponent from "./abstract-smart-component.js";
 
 const generatePhoto = (imgSrcArr, destinationName) => {
   return imgSrcArr
@@ -139,14 +139,22 @@ const createEventEditTemplate = (obj) => {
   );
 };
 
-export default class TripEventEditItem extends AbstractComponent {
+export default class TripEventEditItem extends AbstractSmartComponent {
   constructor(data) {
     super();
     this._tripEventEditItemData = data;
+    this._submitHandler = null;
+
+    //this._subscribeOnEvents();
   }
 
   getTemplate() {
     return createEventEditTemplate(this._tripEventEditItemData);
+  }
+
+  recoveryListeners() {
+    this.setSubmitHandler(this._submitHandler);
+    //this._subscribeOnEvents();
   }
 
   setSubmitHandler(handler) {
@@ -158,5 +166,11 @@ export default class TripEventEditItem extends AbstractComponent {
     this.getElement()
       .querySelector(`.event__favorite-btn`)
       .addEventListener(`click`, handler);
+
+    this._submitHandler = handler;
   }
+
+  /*_subscribeOnEvents() {
+
+  }*/
 }

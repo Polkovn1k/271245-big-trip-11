@@ -43,8 +43,6 @@ export default class Trip {
   }
 
   _renderDay(eventsData, tripDay, dayCount) {
-    this._showedEventControllers = [];
-
     const dayComponent = tripDay
       ? new TripDaysItem(tripDay, dayCount + 1)
       : new TripDaysItem();
@@ -85,6 +83,7 @@ export default class Trip {
   _onSortTypeChange(sortType) {
     this._sortComponent.getElement().querySelector(`#${sortType}`).checked = true;
     this._tripDaysListComponent.getElement().innerHTML = ``;
+    this._showedEventControllers = [];
 
     if (sortType === sortTypeTitle.EVENT) {
       this._tripDays
@@ -102,6 +101,9 @@ export default class Trip {
   }
 
   _notify(index) {
+    console.dir(this._showedEventControllers);
+    console.dir(this._showedEventControllers[index]);
+    console.dir(index);
     this._showedEventControllers[index].render(this._eventsData[index]);
   }
 

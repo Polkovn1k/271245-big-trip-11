@@ -27,13 +27,13 @@ export default class Point {
     this._tripEventEditItem = new TripEventEditItem(eventItemData);
 
     this._tripEventItem.setEditButtonClickHandler(() => {
-      this._replaceTaskToEdit();
+      this._replaceEventToEdit();
       document.addEventListener(`keydown`, this._onEscKeyDown);
     });
 
     this._tripEventEditItem.setSubmitHandler((evt) => {
       evt.preventDefault();
-      this._replaceEditToTask();
+      this._replaceEditToEvent();
     });
 
     this._tripEventEditItem.setFavoritesButtonClickHandler(() => {
@@ -52,17 +52,17 @@ export default class Point {
 
   setDefaultView() {
     if (this._mode !== Mode.DEFAULT) {
-      this._replaceEditToTask();
+      this._replaceEditToEvent();
     }
   }
 
-  _replaceEditToTask() {
+  _replaceEditToEvent() {
     document.removeEventListener(`keydown`, this._onEscKeyDown);
     replace(this._tripEventItem, this._tripEventEditItem);
     this._mode = Mode.DEFAULT;
   }
 
-  _replaceTaskToEdit() {
+  _replaceEventToEdit() {
     this._onViewChange();
     replace(this._tripEventEditItem, this._tripEventItem);
     this._mode = Mode.EDIT;

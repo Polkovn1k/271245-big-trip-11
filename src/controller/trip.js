@@ -108,8 +108,6 @@ export default class Trip {
       return;
     }
 
-    console.dir(oldData);
-    console.dir(newData);
     this._eventsData = [].concat(this._eventsData.slice(0, index), newData, this._eventsData.slice(index + 1));
 
     taskController.render(this._eventsData[index]);

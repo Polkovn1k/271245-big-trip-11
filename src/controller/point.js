@@ -26,6 +26,10 @@ export default class Point {
       document.removeEventListener(`keydown`, this._onEscKeyDown);
     });
 
+    this._tripEventEditItem.setFavoritesButtonClickHandler(() => {
+      console.log(111);
+    });
+
     render(this._container, this._tripEventItem, renderPosition.BEFOREEND);
   }
 

@@ -1,5 +1,5 @@
-import {sortTypeTitle} from '../const';
-import {renderPosition, render} from '../utils/render';
+import {SortTypeTitle} from '../const';
+import {RenderPosition, render} from '../utils/render';
 import Sort from '../components/sort-component';
 import TripDaysList from '../components/trip-days-list-component';
 import TripDaysItem from '../components/trip-days-item-component';
@@ -13,13 +13,13 @@ const getSortedEventsData = (eventDataList, sortType) => {
   const showingEvents = eventDataList.slice();
 
   switch (sortType) {
-    case sortTypeTitle.EVENT:
+    case SortTypeTitle.EVENT:
       sortedEvents = showingEvents;
       break;
-    case sortTypeTitle.TIME:
+    case SortTypeTitle.TIME:
       sortedEvents = showingEvents.sort((a, b) => (new Date(b.date.endDate) - new Date(b.date.startDate)) - (new Date(a.date.endDate) - new Date(a.date.startDate)));
       break;
-    case sortTypeTitle.PRICE:
+    case SortTypeTitle.PRICE:
       sortedEvents = showingEvents.sort((a, b) => b.price - a.price);
       break;
   }
@@ -49,8 +49,8 @@ export default class Trip {
       : new TripDaysItem();
     const eventList = new TripEventList();
 
-    render(this._tripDaysListComponent.getElement(), dayComponent, renderPosition.BEFOREEND);
-    render(dayComponent.getElement(), eventList, renderPosition.BEFOREEND);
+    render(this._tripDaysListComponent.getElement(), dayComponent, RenderPosition.BEFOREEND);
+    render(dayComponent.getElement(), eventList, RenderPosition.BEFOREEND);
 
     eventsData.forEach((event) => {
       const pointController = new PointController(eventList.getElement(), this._onDataChange, this._onViewChange);
@@ -65,12 +65,12 @@ export default class Trip {
     const container = this._container;
 
     if (!this._eventsData.length) {
-      render(container, this._noPointsComponent, renderPosition.BEFOREEND);
+      render(container, this._noPointsComponent, RenderPosition.BEFOREEND);
       return;
     }
 
-    render(container, this._sortComponent, renderPosition.BEFOREEND);
-    render(container, this._tripDaysListComponent, renderPosition.BEFOREEND);
+    render(container, this._sortComponent, RenderPosition.BEFOREEND);
+    render(container, this._tripDaysListComponent, RenderPosition.BEFOREEND);
 
     this._tripDays
       .slice()
@@ -86,7 +86,7 @@ export default class Trip {
     this._tripDaysListComponent.getElement().innerHTML = ``;
     this._showedEventControllers = [];
 
-    if (sortType === sortTypeTitle.EVENT) {
+    if (sortType === SortTypeTitle.EVENT) {
       this._tripDays
         .slice()
         .forEach((currentTripDay, count) => {

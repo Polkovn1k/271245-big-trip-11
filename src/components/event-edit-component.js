@@ -144,7 +144,6 @@ export default class TripEventEditItem extends AbstractSmartComponent {
     super();
     this._tripEventEditItemData = data;
     this._submitHandler = null;
-    this._subscribeOnEvents();
   }
 
   getTemplate() {
@@ -153,7 +152,6 @@ export default class TripEventEditItem extends AbstractSmartComponent {
 
   recoveryListeners() {
     this.setSubmitHandler(this._submitHandler);
-    this._subscribeOnEvents();
   }
 
   rerender() {
@@ -184,6 +182,4 @@ export default class TripEventEditItem extends AbstractSmartComponent {
       .querySelector(`.event__input--destination`)
       .addEventListener(`change`, handler);
   }
-
-  _subscribeOnEvents() {}
 }

@@ -1,4 +1,4 @@
-import {renderPosition, render, replace} from '../utils/render';
+import {RenderPosition, render, replace} from '../utils/render';
 import TripEventItem from '../components/trip-event-item-component';
 import TripEventEditItem from '../components/event-edit-component';
 
@@ -37,9 +37,8 @@ export default class Point {
     });
 
     this._tripEventEditItem.setFavoritesButtonClickHandler(() => {
-      const newIsFavoriteData = eventItemData.isFavorite;
       this._onDataChange(this, eventItemData, Object.assign({}, eventItemData, {
-        isFavorite: newIsFavoriteData,
+        isFavorite: !eventItemData.isFavorite,
       }));
     });
 
@@ -51,9 +50,8 @@ export default class Point {
     });
 
     this._tripEventEditItem.setDestinationChangeHandler((evt) => {
-      const newDestinationData = evt.currentTarget.value;
       this._onDataChange(this, eventItemData, Object.assign({}, eventItemData, {
-        destinationName: newDestinationData,
+        destinationName: evt.currentTarget.value,
       }));
     });
 
@@ -61,7 +59,7 @@ export default class Point {
       replace(this._tripEventItem, oldEventComponent);
       replace(this._tripEventEditItem, oldEventEditComponent);
     } else {
-      render(this._container, this._tripEventItem, renderPosition.BEFOREEND);
+      render(this._container, this._tripEventItem, RenderPosition.BEFOREEND);
     }
   }
 

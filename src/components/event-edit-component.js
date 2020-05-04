@@ -173,5 +173,17 @@ export default class TripEventEditItem extends AbstractSmartComponent {
       .addEventListener(`click`, handler);
   }
 
+  setEventTypeBtnsClickHandler(handler) {
+    this.getElement()
+      .querySelectorAll(`.event__type-label`)
+      .forEach((item) => item.addEventListener(`click`, handler));
+  }
+
+  setDestinationChangeHandler(handler) {
+    this.getElement()
+      .querySelector(`.event__input--destination`)
+      .addEventListener(`change`, handler);
+  }
+
   _subscribeOnEvents() {}
 }

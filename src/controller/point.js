@@ -37,8 +37,23 @@ export default class Point {
     });
 
     this._tripEventEditItem.setFavoritesButtonClickHandler(() => {
+      const newIsFavoriteData = eventItemData.isFavorite;
       this._onDataChange(this, eventItemData, Object.assign({}, eventItemData, {
-        isFavorite: !eventItemData.isFavorite,
+        isFavorite: newIsFavoriteData,
+      }));
+    });
+
+    this._tripEventEditItem.setEventTypeBtnsClickHandler((evt) => {
+      const newEventTypeData = this._tripEventEditItem.getElement().querySelector(`#${evt.target.htmlFor}`).value;
+      this._onDataChange(this, eventItemData, Object.assign({}, eventItemData, {
+        type: newEventTypeData,
+      }));
+    });
+
+    this._tripEventEditItem.setDestinationChangeHandler((evt) => {
+      const newDestinationData = evt.currentTarget.value;
+      this._onDataChange(this, eventItemData, Object.assign({}, eventItemData, {
+        destinationName: newDestinationData,
       }));
     });
 

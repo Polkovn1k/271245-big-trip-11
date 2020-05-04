@@ -1,4 +1,4 @@
-const RENDER_POSITION = {
+const renderPosition = {
   BEFOREBEGIN: `beforeBegin`,
   AFTERBEGIN: `afterBegin`,
   BEFOREEND: `beforeEnd`,
@@ -33,4 +33,4 @@ const remove = (component) => {
   component.removeElement();
 };
 
-export {RENDER_POSITION, createElement, render, replace, remove};
+export {renderPosition, createElement, render, replace, remove};

@@ -1,6 +1,8 @@
 import {TRANSFER_TYPE, ACTIVITY_TYPE, EVENT_DESTINATION} from '../const';
 import {formatTime, checkEventType, castTimeFormat} from '../utils/common';
 import AbstractSmartComponent from "./abstract-smart-component.js";
+import flatpickr from "flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
 
 const generatePhoto = (imgSrcArr, destinationName) => {
   return imgSrcArr
@@ -144,6 +146,10 @@ export default class TripEventEditItem extends AbstractSmartComponent {
     super();
     this._tripEventEditItemData = data;
     this._submitHandler = null;
+    this._flatpickrStart = null;
+    this._flatpickrEnd = null;
+
+    this._applyFlatpickr();
   }
 
   getTemplate() {
@@ -156,6 +162,36 @@ export default class TripEventEditItem extends AbstractSmartComponent {
 
   rerender() {
     super.rerender();
+    this._applyFlatpickr();
+  }
+
+  _applyFlatpickr() {
+    if (this._flatpickrStart && this._flatpickrEnd) {
+      this._flatpickrStart.destroy();
+      this._flatpickrStart = null;
+      this._flatpickrEnd.destroy();
+      this._flatpickrEnd = null;
+    }
+
+    const startDateElement = this.getElement().querySelector(`.event__input--time[name="event-start-time"]`);
+    this._flatpickrStart = flatpickr(startDateElement, {
+      enableTime: true,
+      altInput: true,
+      allowInput: true,
+      dateFormat: `Y/m/d H:i`,
+      altFormat: `Y/m/d H:i`,
+      defaultDate: this._tripEventEditItemData.date.startDate,
+    });
+
+    const endDateElement = this.getElement().querySelector(`.event__input--time[name="event-end-time"]`);
+    this._flatpickrStart = flatpickr(endDateElement, {
+      enableTime: true,
+      altInput: true,
+      allowInput: true,
+      dateFormat: `Y/m/d H:i`,
+      altFormat: `Y/m/d H:i`,
+      defaultDate: this._tripEventEditItemData.date.endDate,
+    });
   }
 
   setSubmitHandler(handler) {

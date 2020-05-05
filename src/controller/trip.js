@@ -59,6 +59,16 @@ export default class Trip {
     });
   }
 
+  _generateRenderDays(daysArr) {
+    daysArr
+      .slice()
+      .forEach((currentTripDay, count) => {
+        const currentEventData = this._eventsData
+          .filter((eventItem) => getTripDaysString(eventItem) === currentTripDay);
+        this._renderDay(currentEventData, currentTripDay, count);
+      });
+  }
+
   render(eventDataList) {
     this._eventsData = eventDataList;
     this._tripDays = generateTripDays(this._eventsData);
@@ -72,13 +82,7 @@ export default class Trip {
     render(container, this._sortComponent, RenderPosition.BEFOREEND);
     render(container, this._tripDaysListComponent, RenderPosition.BEFOREEND);
 
-    this._tripDays
-      .slice()
-      .forEach((currentTripDay, count) => {
-        const currentEventData = this._eventsData
-          .filter((eventItem) => getTripDaysString(eventItem) === currentTripDay);
-        this._renderDay(currentEventData, currentTripDay, count);
-      });
+    this._generateRenderDays(this._tripDays);
   }
 
   _onSortTypeChange(sortType) {
@@ -87,13 +91,7 @@ export default class Trip {
     this._showedEventControllers = [];
 
     if (sortType === SortTypeTitle.EVENT) {
-      this._tripDays
-        .slice()
-        .forEach((currentTripDay, count) => {
-          const currentEventData = this._eventsData
-            .filter((eventItem) => getTripDaysString(eventItem) === currentTripDay);
-          this._renderDay(currentEventData, currentTripDay, count);
-        });
+      this._generateRenderDays(this._tripDays);
       return;
     }
 

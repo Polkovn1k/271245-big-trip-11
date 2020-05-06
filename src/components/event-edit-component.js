@@ -160,11 +160,6 @@ export default class TripEventEditItem extends AbstractSmartComponent {
     this.setSubmitHandler(this._submitHandler);
   }
 
-  rerender() {
-    super.rerender();
-    this._applyFlatpickr();
-  }
-
   _applyFlatpickr() {
     if (this._flatpickrStart && this._flatpickrEnd) {
       this._flatpickrStart.destroy();

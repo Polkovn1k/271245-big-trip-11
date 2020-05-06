@@ -36,4 +36,3 @@ const mainTripListController = new TripController(tripEvents);
 renderTripMainControls();
 renderInfo(tripEventItems);
 mainTripListController.render(tripEventItems);
-console.dir(tripEventItems[0]);

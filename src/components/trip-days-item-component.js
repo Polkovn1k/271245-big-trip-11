@@ -1,16 +1,14 @@
-import {MONTH_NAMES} from '../const';
+import {formatDate} from '../utils/common';
 import AbstractComponent from "./abstract-component.js";
 
 const createTripDaysItemTemplate = (tripDay, count) => {
-  const day = new Date(tripDay);
-  const month = tripDay ? MONTH_NAMES[day.getMonth()] : tripDay;
-  const dateNum = tripDay ? day.getDate() : tripDay;
+  const date = tripDay ? formatDate(new Date(tripDay)) : ``;
 
   return (
     `<li class="trip-days__item  day">
       <div class="day__info">
         <span class="day__counter">${count}</span>
-        <time class="day__date" datetime="${tripDay}">${month} ${dateNum}</time>
+        <time class="day__date" datetime="${tripDay}">${date}</time>
       </div>
     </li>`
   );

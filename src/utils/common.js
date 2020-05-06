@@ -22,6 +22,10 @@ const formatTime = (date) => {
   return moment(date).format(`hh:mm`);
 };
 
+const formatDate = (date) => {
+  return moment(date).format(`DD MMMM`);
+};
+
 const timeDuration = (start, end) => {
   const momentDiff = moment(end).diff(moment(start));
   const momentDuration = moment.duration(momentDiff);
@@ -50,6 +54,7 @@ export {
   getRandomNumberFromInterval,
   castTimeFormat,
   formatTime,
+  formatDate,
   timeDuration,
   checkEventType,
 };

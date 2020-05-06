@@ -37,20 +37,20 @@ export default class Point {
     });
 
     this._tripEventEditItem.setFavoritesButtonClickHandler(() => {
-      this._onDataChange(this, eventItemData, Object.assign({}, eventItemData, {
+      this._onDataChange(eventItemData, Object.assign({}, eventItemData, {
         isFavorite: !eventItemData.isFavorite,
       }));
     });
 
     this._tripEventEditItem.setEventTypeBtnsClickHandler((evt) => {
       const newEventTypeData = this._tripEventEditItem.getElement().querySelector(`#${evt.target.htmlFor}`).value;
-      this._onDataChange(this, eventItemData, Object.assign({}, eventItemData, {
+      this._onDataChange(eventItemData, Object.assign({}, eventItemData, {
         type: newEventTypeData,
       }));
     });
 
     this._tripEventEditItem.setDestinationChangeHandler((evt) => {
-      this._onDataChange(this, eventItemData, Object.assign({}, eventItemData, {
+      this._onDataChange(eventItemData, Object.assign({}, eventItemData, {
         destinationName: evt.currentTarget.value,
       }));
     });

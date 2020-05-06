@@ -99,7 +99,7 @@ export default class Trip {
     this._renderDay(sortedDataList);
   }
 
-  _onDataChange(taskController, oldData, newData) {
+  _onDataChange(oldData, newData) {
     const index = this._eventsData.findIndex((it) => it === oldData);
 
     if (index === -1) {
@@ -108,7 +108,7 @@ export default class Trip {
 
     this._eventsData = [].concat(this._eventsData.slice(0, index), newData, this._eventsData.slice(index + 1));
 
-    taskController.render(this._eventsData[index]);
+    this._showedEventControllers[index].render(this._eventsData[index]);
   }
 
   _onViewChange() {

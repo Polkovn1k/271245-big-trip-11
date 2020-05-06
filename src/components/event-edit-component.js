@@ -3,6 +3,7 @@ import {formatTime, checkEventType, castTimeFormat} from '../utils/common';
 import AbstractSmartComponent from "./abstract-smart-component.js";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import "flatpickr/dist/themes/material_blue.css";
 
 const generatePhoto = (imgSrcArr, destinationName) => {
   return imgSrcArr

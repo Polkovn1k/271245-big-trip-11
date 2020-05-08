@@ -2,7 +2,7 @@ import {getRandomItemsFromArray, getRandomInt} from '../utils/common';
 
 const DESCRIPTION_AND_PHOTO_MAX_ITEMS = 5;
 
-const EventDestinationDescriptions = [
+const eventDestinationDescriptions = [
   `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
   `Cras aliquet varius magna, non porta ligula feugiat eget.`,
   `Fusce tristique felis at fermentum pharetra.`,
@@ -17,7 +17,7 @@ const EventDestinationDescriptions = [
 ];
 
 const generateTripEventDestinationData = () => {
-  const destinationDescription = getRandomItemsFromArray(EventDestinationDescriptions, getRandomInt(DESCRIPTION_AND_PHOTO_MAX_ITEMS));
+  const destinationDescription = getRandomItemsFromArray(eventDestinationDescriptions, getRandomInt(DESCRIPTION_AND_PHOTO_MAX_ITEMS));
   const destinationPhoto = new Array(getRandomInt(DESCRIPTION_AND_PHOTO_MAX_ITEMS))
     .fill(``)
     .map(() => (`http://picsum.photos/248/152?r=${Math.random()}`));

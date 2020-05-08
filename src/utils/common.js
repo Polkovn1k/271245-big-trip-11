@@ -18,13 +18,9 @@ const getRandomNumberFromInterval = (min, max, mult) => Math.floor(Math.floor(Ma
 
 const castTimeFormat = (value) => value < 10 ? `0${value}` : String(value);
 
-const formatTime = (date) => {
-  return moment(date).format(`hh:mm`);
-};
+const formatTime = (date) => moment(date).format(`hh:mm`);
 
-const formatDate = (date) => {
-  return moment(date).format(`DD MMMM`);
-};
+const formatDate = (date) => moment(date).format(`DD MMMM`);
 
 const timeDuration = (start, end) => {
   const momentDiff = moment(end).diff(moment(start));

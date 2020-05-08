@@ -241,10 +241,10 @@ export default class TripEventEditItem extends AbstractSmartComponent {
 
     this.setSubmitHandler(this._submitHandler);
 
-    element.querySelectorAll(`.event__type-label`)
+    element.querySelectorAll(`.event__type-input`)
       .forEach((item) => {
-        item.addEventListener(`click`, (evt) => {
-          const newEventTypeData = element.querySelector(`#${evt.target.htmlFor}`).value;
+        item.addEventListener(`change`, (evt) => {
+          const newEventTypeData = evt.target.value;
           this._eventTypeData = newEventTypeData;
           this._offersDataArray = generateTripEventOfferData()[this._eventTypeData];
 

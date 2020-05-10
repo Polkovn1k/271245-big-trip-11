@@ -1,5 +1,5 @@
 import AbstractComponent from "./abstract-component.js";
-import {sortTypeTitle} from '../const';
+import {SortTypeTitle} from '../const';
 
 const createSortTemplate = () => {
   return (
@@ -7,12 +7,12 @@ const createSortTemplate = () => {
       <span class="trip-sort__item  trip-sort__item--day">Day</span>
 
       <div class="trip-sort__item  trip-sort__item--event">
-        <input id="${sortTypeTitle.EVENT}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="${sortTypeTitle.EVENT}" checked>
+        <input id="${SortTypeTitle.EVENT}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="${SortTypeTitle.EVENT}" checked>
         <label class="trip-sort__btn" for="sort-event">Event</label>
       </div>
 
       <div class="trip-sort__item  trip-sort__item--time">
-        <input id="${sortTypeTitle.TIME}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="${sortTypeTitle.TIME}">
+        <input id="${SortTypeTitle.TIME}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="${SortTypeTitle.TIME}">
         <label class="trip-sort__btn" for="sort-time">
           Time
           <svg class="trip-sort__direction-icon" width="8" height="10" viewBox="0 0 8 10">
@@ -22,7 +22,7 @@ const createSortTemplate = () => {
       </div>
 
       <div class="trip-sort__item  trip-sort__item--price">
-        <input id="${sortTypeTitle.PRICE}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="${sortTypeTitle.PRICE}">
+        <input id="${SortTypeTitle.PRICE}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="${SortTypeTitle.PRICE}">
         <label class="trip-sort__btn" for="sort-price">
           Price
           <svg class="trip-sort__direction-icon" width="8" height="10" viewBox="0 0 8 10">
@@ -39,7 +39,7 @@ const createSortTemplate = () => {
 export default class Sort extends AbstractComponent {
   constructor() {
     super();
-    this._currentSortType = sortTypeTitle.EVENT;
+    this._currentSortType = SortTypeTitle.EVENT;
   }
 
   getTemplate() {
@@ -71,4 +71,4 @@ export default class Sort extends AbstractComponent {
   }
 }
 
-export {sortTypeTitle};
+export {SortTypeTitle};

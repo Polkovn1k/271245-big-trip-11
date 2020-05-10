@@ -1,5 +1,5 @@
-import {sortTypeTitle} from '../const';
-import {renderPosition, render} from '../utils/render';
+import {SortTypeTitle} from '../const';
+import {RenderPosition, render} from '../utils/render';
 import Sort from '../components/sort-component';
 import TripDaysList from '../components/trip-days-list-component';
 import TripDaysItem from '../components/trip-days-item-component';
@@ -13,13 +13,13 @@ const getSortedEventsData = (eventDataList, sortType) => {
   const showingEvents = eventDataList.slice();
 
   switch (sortType) {
-    case sortTypeTitle.EVENT:
+    case SortTypeTitle.EVENT:
       sortedEvents = showingEvents;
       break;
-    case sortTypeTitle.TIME:
+    case SortTypeTitle.TIME:
       sortedEvents = showingEvents.sort((a, b) => (new Date(b.date.endDate) - new Date(b.date.startDate)) - (new Date(a.date.endDate) - new Date(a.date.startDate)));
       break;
-    case sortTypeTitle.PRICE:
+    case SortTypeTitle.PRICE:
       sortedEvents = showingEvents.sort((a, b) => b.price - a.price);
       break;
   }
@@ -49,8 +49,8 @@ export default class Trip {
       : new TripDaysItem();
     const eventList = new TripEventList();
 
-    render(this._tripDaysListComponent.getElement(), dayComponent, renderPosition.BEFOREEND);
-    render(dayComponent.getElement(), eventList, renderPosition.BEFOREEND);
+    render(this._tripDaysListComponent.getElement(), dayComponent, RenderPosition.BEFOREEND);
+    render(dayComponent.getElement(), eventList, RenderPosition.BEFOREEND);
 
     eventsData.forEach((event) => {
       const pointController = new PointController(eventList.getElement(), this._onDataChange, this._onViewChange);
@@ -59,20 +59,8 @@ export default class Trip {
     });
   }
 
-  render(eventDataList) {
-    this._eventsData = eventDataList;
-    this._tripDays = generateTripDays(this._eventsData);
-    const container = this._container;
-
-    if (!this._eventsData.length) {
-      render(container, this._noPointsComponent, renderPosition.BEFOREEND);
-      return;
-    }
-
-    render(container, this._sortComponent, renderPosition.BEFOREEND);
-    render(container, this._tripDaysListComponent, renderPosition.BEFOREEND);
-
-    this._tripDays
+  _generateRenderDays(daysArr) {
+    daysArr
       .slice()
       .forEach((currentTripDay, count) => {
         const currentEventData = this._eventsData
@@ -81,19 +69,29 @@ export default class Trip {
       });
   }
 
+  render(eventDataList) {
+    this._eventsData = eventDataList;
+    this._tripDays = generateTripDays(this._eventsData);
+    const container = this._container;
+
+    if (!this._eventsData.length) {
+      render(container, this._noPointsComponent, RenderPosition.BEFOREEND);
+      return;
+    }
+
+    render(container, this._sortComponent, RenderPosition.BEFOREEND);
+    render(container, this._tripDaysListComponent, RenderPosition.BEFOREEND);
+
+    this._generateRenderDays(this._tripDays);
+  }
+
   _onSortTypeChange(sortType) {
     this._sortComponent.getElement().querySelector(`#${sortType}`).checked = true;
     this._tripDaysListComponent.getElement().innerHTML = ``;
     this._showedEventControllers = [];
 
-    if (sortType === sortTypeTitle.EVENT) {
-      this._tripDays
-        .slice()
-        .forEach((currentTripDay, count) => {
-          const currentEventData = this._eventsData
-            .filter((eventItem) => getTripDaysString(eventItem) === currentTripDay);
-          this._renderDay(currentEventData, currentTripDay, count);
-        });
+    if (sortType === SortTypeTitle.EVENT) {
+      this._generateRenderDays(this._tripDays);
       return;
     }
 
@@ -101,7 +99,7 @@ export default class Trip {
     this._renderDay(sortedDataList);
   }
 
-  _onDataChange(taskController, oldData, newData) {
+  _onDataChange(oldData, newData) {
     const index = this._eventsData.findIndex((it) => it === oldData);
 
     if (index === -1) {
@@ -110,7 +108,7 @@ export default class Trip {
 
     this._eventsData = [].concat(this._eventsData.slice(0, index), newData, this._eventsData.slice(index + 1));
 
-    taskController.render(this._eventsData[index]);
+    this._showedEventControllers[index].render(this._eventsData[index]);
   }
 
   _onViewChange() {

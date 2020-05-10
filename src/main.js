@@ -1,4 +1,4 @@
-import {renderPosition, render} from './utils/render';
+import {RenderPosition, render} from './utils/render';
 import InfoContainer from './components/info-container-component';
 import MainInfo from './components/main-info-component';
 import Cost from './components/cost-component';
@@ -13,10 +13,10 @@ const tripEvents = document.querySelector(`.trip-events`);
 
 const renderInfo = (infoData) => {
   const infoContainer = new InfoContainer();
-  render(tripMain, infoContainer, renderPosition.AFTERBEGIN);
-  render(infoContainer.getElement(), new Cost(), renderPosition.BEFOREEND);
+  render(tripMain, infoContainer, RenderPosition.AFTERBEGIN);
+  render(infoContainer.getElement(), new Cost(), RenderPosition.BEFOREEND);
   if (infoData.length) {
-    render(tripMain, new MainInfo(infoData), renderPosition.AFTERBEGIN);
+    render(tripMain, new MainInfo(infoData), RenderPosition.AFTERBEGIN);
   }
 };
 
@@ -24,8 +24,8 @@ const renderTripMainControls = () => {
   const tripMainControls = tripMain.querySelector(`.trip-main__trip-controls`);
   const tripMainControlsTitle = tripMain.querySelector(`.trip-main__trip-controls h2:first-child`);
 
-  render(tripMainControls, new Filter(), renderPosition.BEFOREEND);
-  render(tripMainControlsTitle, new Menu(), renderPosition.AFTEREND);
+  render(tripMainControls, new Filter(), RenderPosition.BEFOREEND);
+  render(tripMainControlsTitle, new Menu(), RenderPosition.AFTEREND);
 };
 
 const tripEventItems = generateTripEventsData(TRIP_EVENT_ITEM_QUANTITY)

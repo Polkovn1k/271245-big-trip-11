@@ -5,6 +5,7 @@ import AbstractComponent from "./abstract-component.js";
 const getEventSelectedOffersTemplate = (offerData) => {
   return offerData
     .filter((item) => item.checked)
+    .slice(0, 3)
     .map((item) => (
       `<li class="event__offer">
         <span class="event__offer-title">${item.title}</span>

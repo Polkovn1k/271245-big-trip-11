@@ -156,6 +156,7 @@ export default class TripEventEditItem extends AbstractSmartComponent {
     this._destinationPhoto = data.destinationInfo.destinationPhoto;
 
     this._submitHandler = null;
+    this._favoriteHandler = null;
     this._flatpickrStart = null;
     this._flatpickrEnd = null;
 
@@ -180,6 +181,17 @@ export default class TripEventEditItem extends AbstractSmartComponent {
   rerender() {
     super.rerender();
     this._applyFlatpickr();
+  }
+
+  reset() {
+    const tripEventEditItemData = this._tripEventEditItemData;
+    this._eventTypeData = tripEventEditItemData.type;
+    this._destinationName = tripEventEditItemData.destinationName;
+    this._offersDataArray = tripEventEditItemData.offers;
+    this._destinationDescription = tripEventEditItemData.destinationInfo.destinationDescription;
+    this._destinationPhoto = tripEventEditItemData.destinationInfo.destinationPhoto;
+
+    this.rerender();
   }
 
   _applyFlatpickr() {
@@ -222,24 +234,15 @@ export default class TripEventEditItem extends AbstractSmartComponent {
     this.getElement()
       .querySelector(`.event__favorite-btn`)
       .addEventListener(`click`, handler);
-  }
 
-  setEventTypeBtnsClickHandler(handler) {
-    this.getElement()
-      .querySelectorAll(`.event__type-label`)
-      .forEach((item) => item.addEventListener(`click`, handler));
-  }
-
-  setDestinationChangeHandler(handler) {
-    this.getElement()
-      .querySelector(`.event__input--destination`)
-      .addEventListener(`change`, handler);
+    this._favoriteHandler = handler;
   }
 
   _subscribeOnEvents() {
     const element = this.getElement();
 
     this.setSubmitHandler(this._submitHandler);
+    this.setFavoritesButtonClickHandler(this._favoriteHandler);
 
     element.querySelectorAll(`.event__type-input`)
       .forEach((item) => {
